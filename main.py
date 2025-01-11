@@ -285,7 +285,8 @@ product_df.to_csv('data/products.csv', index=False)
 # Generate class data
 relatedProduct_ids = [i for i in range(product_ammount) if product_list[i]['typeID'] == 2]
 class_list = []
-
+class_to_product = []
+product_price = [None for _ in range(product_ammount)]
 class_ammount = len(relatedProduct_ids)
 for i in range(class_ammount):
     if product_time_start_end[i][0] > datetime.now():
@@ -302,6 +303,8 @@ for i in range(class_ammount):
         "term": ((2025 - year) * 2 + 1 if year > 2021 else 0),
         "price": (fake.random_int(min=1000000, max=30000000) / 100),
     }
+    product_price[relatedProduct_ids[i]] = class_data['price']
+    class_to_product.append(class_data['productID'])
     class_list.append(class_data)
 class_df = pd.DataFrame(class_list)
 class_df.to_csv('data/class.csv', index=False)
@@ -316,7 +319,7 @@ for i in range(class_ammount):
         try:
             student_id = remaining_participant_ids.pop(fake.random_int(min=0, max=len(remaining_participant_ids) - 1))
             student = {
-                "courseID": i,
+                "classID": i,
                 "studentID": student_id,
             }
         except:
@@ -328,9 +331,20 @@ for i in range(class_ammount):
 students_df = pd.DataFrame(students)
 students_df.to_csv('data/students.csv', index=False)
 
+# Generate finalExam data
+finalExam_list = []
+for student in students:
+    final_exam = {
+        "classID": student['classID'],
+        "participantID": student['studentID'],
+        "passed": fake.random_element([None, 1, 0]),
+    }
+    finalExam_list.append(final_exam)
+
 # Generate course data
 relatedProduct_ids = [i for i in range(product_ammount) if product_list[i]['typeID'] == 1]
 course_list = []
+course_to_product = []
 course_ammount = len(relatedProduct_ids)
 for i in range(course_ammount):
     date = product_time_start_end[relatedProduct_ids[i]][0]
@@ -345,8 +359,9 @@ for i in range(course_ammount):
         "price": fake.random_int(min=20000, max=300000) / 100,
         "advancePrice": fake.random_int(min=10000, max=150000) / 100,
         "limit": fake.random_int(min=30, max=60) if fake.random_int(min=0, max=5) == 0 else None,
-
     }
+    product_price[relatedProduct_ids[i]] = course_data['price']
+    course_to_product.append(course_data['productID'])
     course_list.append(course_data)
 course_df = pd.DataFrame(course_list)
 course_df.to_csv('data/course.csv', index=False)
@@ -397,6 +412,7 @@ course_participants_df.to_csv('data/courseParticipants.csv', index=False)
 # Generate webinar data
 relatedProduct_ids = [i for i in range(product_ammount) if product_list[i]['typeID'] == 0]
 webinar_list = []
+wenbinar_to_product = []
 webinar_ammount = len(relatedProduct_ids)
 for i in range(webinar_ammount):
     webinar_data = {
@@ -406,6 +422,8 @@ for i in range(webinar_ammount):
             ["I", "II", "III", "IV"]),
         "price": fake.random_int(min=1000, max=10000) / 100,
     }
+    product_price[relatedProduct_ids[i]] = webinar_data['price']
+    wenbinar_to_product.append(webinar_data['productID'])
     webinar_list.append(webinar_data)
 webinar_df = pd.DataFrame(webinar_list)
 webinar_df.to_csv('data/webinar.csv', index=False)
@@ -419,7 +437,7 @@ for i in range(webinar_ammount):
             break
     webinar_details = {
         "instructorID": fake.random_int(min=0, max=employees_amount - 1),
-        "meetingLink": fake.url(),
+        "meetingLink": fake.link(),
         "recordingLink": fake.url(),
         "description": fake.text(),
         "translatorID": translator,
@@ -430,12 +448,6 @@ webinar_details_df = pd.DataFrame(webinar_details_list)
 webinar_details_df.to_csv('data/webinarDetails.csv', index=False)
 
 # Generate webinarParticipants
-# CREATE TABLE webinarParticipants (
-#     webinarID int  NOT NULL,
-#     participantID int  NOT NULL,
-#     accessUntill datetime  NOT NULL,
-#     CONSTRAINT webinarParticipants_pk PRIMARY KEY (webinarID,participantID)
-# );
 webinar_participants = []
 for i in range(webinar_ammount):
     webinar_participants_in_this_webinar = fake.random_int(min=30, max=60)  # numbers chosen for convenience
@@ -486,39 +498,94 @@ for i in range(rooms_ammount):
 room_df = pd.DataFrame(room_list)
 room_df.to_csv('data/rooms.csv', index=False)
 
-# generate random orders data ###NIE SKONCZONE###
+# generate random orders data 
 
 orders_list = []
-remaining_participant_ids = [i for i in
-                             range(participants_ammount)]  # (participants_ammount is the number of all participants)
-student_ids = remaining_participant_ids[len(remaining_participant_ids) // 3:]
-remaining_participant_ids = [i for i in remaining_participant_ids if i not in student_ids]
-order_dates = []
+
+order_product_ids = [[] for i in range(len(students) + len(course_participants) + len(webinar_participants))]
+
+
 # orders for studies:
-for i in student_ids:
+i = 0
+for student in students:
+    product_id = class_to_product[student['classID']]
+    class_time = product_time_start_end[product_id]
     order = {
-        "participantID": i,
-        "paymentLink": fake.url(),
-        "orderDate": fake.date_time_between(start_date='-6y', end_date='now'),
-    }
-    order_dates.append(order['orderDate'])
+        'participantID': student['studentID'],
+        'paymentLink': fake.link(),
+        'orderDate': class_time[0] - timedelta(days=-random.randint(180, 360)),
+    }   
+    order_product_ids[i].append(product_id)
+    i += 1
     orders_list.append(order)
 
 # orders for courses:
-course_students_ids = remaining_participant_ids[:len(remaining_participant_ids) // 2]
-remaining_participant_ids = [i for i in remaining_participant_ids if i not in course_students_ids]
-for i in course_students_ids:
+for course_participant in course_participants:
+    product_id = course_to_product[course_participant['courseID']]
+    course_time = product_time_start_end[product_id]
     order = {
-        "participantID": i,
-        "paymentLink": fake.url(),
-        "orderDate": fake.date_time_between(start_date='-6y', end_date='now'),
+        'participantID': course_participant['studentID'],
+        'paymentLink': fake.link(),
+        'orderDate': course_time[0] + timedelta(days=-random.randint(1, 180)),
     }
-    order_dates.append(order['orderDate'])
+    order_product_ids[i].append(product_id)
+    i += 1
     orders_list.append(order)
 
+# orders for webinars:
+for webinar_participant in webinar_participants:
+    product_id = wenbinar_to_product[webinar_participant['webinarID']]
+    webinar_time = product_time_start_end[product_id]
+    order = {
+        'participantID': webinar_participant['participantID'],
+        'paymentLink': fake.link(),
+        'orderDate': webinar_time[0] + timedelta(days=-random.randint(1, 180)),
+    }
+    order_product_ids[i].append(product_id)
+    i += 1
+    orders_list.append(order)
+orders_df = pd.DataFrame(orders_list)
+orders_df.to_csv('data/orders.csv', index=False)
 
+
+# generate orderDetails data
+orderDetails_list = []
+i = 0
+for order in orders_list:
+    order_date = order['orderDate']
+    product = product_list[order_product_ids[i][0]]
+    isCourse = (product['typeID']==1)
+    order_detail = {
+        'orderID': i,
+        'productID': order_product_ids[i][0],
+        'fullPaymentDate': order_date + timedelta(days=random.randint(1, 180)),
+        'advancePaymentDate': (order_date + timedelta(days=random.randint(1, 3)) if isCourse else None),
+        'statusID': random.randint(1, 4),
+        'price': product_price[order_product_ids[i][0]]
+    }
+    i += 1
+    orderDetails_list.append(order_detail)
+orderDetails_df = pd.DataFrame(orderDetails_list)
+orderDetails_df.to_csv('data/orderDetails.csv', index=False)
+
+
+# generate orderStatus data
+orderStatus = ["in progress", "completed", "cancelled", "refunded"]
+orderStatus_df = pd.DataFrame(orderStatus, columns=['statusID'])
+orderStatus_df.to_csv('data/orderStatus.csv', index=False)
+
+# generate PaymentDeferral data
+paymentDeferral = []
+for i in range (1, 10):
+    order_id = fake.random_int(min=1, max=len(orders_list))
+    payment = {
+        "orderID": fake.random_int(min=1, max=len(orders_list)),
+        "newDueDate": orders_list[order_id]['orderDate'] + timedelta(days=random.randint(1, 30))
+    }
+    paymentDeferral.append(payment)
+paymentDeferral_df = pd.DataFrame(paymentDeferral)
+paymentDeferral_df.to_csv('data/paymentDeferral.csv', index=False)
 # generate random company data
-
 company_list = []
 
 for i in range(company_ammount):
@@ -531,7 +598,7 @@ for i in range(company_ammount):
     company_list.append(company)
 
 company_df=pd.DataFrame(company_list)
-company_df.to_csv('data/companys.csv',index=False)
+company_df.to_csv('data/company.csv',index=False)
 
 
 # generate meetingMode
@@ -547,9 +614,9 @@ meeting_list = []
 
 for i in range(meeting_amount):
     subject_id = fake.random_int(min=1, max=subjects_length)
-    instructors_id = [instructors_df['instructorID'].tolist() for instructor in instructors]
+    instructors_id = [instructors_df['instructorID'].tolist() for _ in instructors]
     instructor_id = random.choice(instructors_id[0])
-    translators_id = [translators_df['translator_id'].tolist() for translator in translators]
+    translators_id = [translators_df['translator_id'].tolist() for _ in translators]
     translator_id = random.choice(translators_id[0])
     languages_for_translator = language_details_df.query('translatorID == @translator_id')['languageID'].tolist()
     language_id = random.choice(languages_for_translator)
@@ -563,7 +630,7 @@ for i in range(meeting_amount):
     meeting_list.append(meeting)
 
 meetings_df=pd.DataFrame(meeting_list)
-meetings_df.to_csv('data/meetings/csv',index=False)
+meetings_df.to_csv('data/meetings.csv',index=False)
 
 
 # generate random onlineAsyncMeeting data
@@ -607,7 +674,7 @@ for i in range(1, stationary_meetings_amount + 1):
     o_s_meeting = {
         "meetingID": onlineAsyncMeeting_amount + onlineSyncMeeting_amount + i,
         "roomID": random.randint(1, 100),
-        "data": fake.date_between(start_date='-6y', end_date='+1y').strftime('%Y-%m-%d')
+        "date": fake.date_between(start_date='-6y', end_date='+1y').strftime('%Y-%m-%d')
     }
     stationaryMeetings.append(o_s_meeting)
 stationaryMeetings_df = pd.DataFrame(stationaryMeetings)
@@ -623,7 +690,7 @@ for i in range(meeting_amount):
     start_minutes = f"{start_minutes_tmp:02}"
     end_hours = hour_start + random.randint(1, 3)
     meeting_time = {
-        "meetingID": random.randint(1, 40000),
+        "meetingID": i,
         "startTime": str(hour_start) + ":" + start_minutes,
         "endTime": str(end_hours) + ":" + start_minutes
     }
@@ -671,7 +738,7 @@ for i in range(10):
     internships.append(internship)
 
 internships_df=pd.DataFrame(internships)
-internships_df.to_csv('data/internships',index=False)
+internships_df.to_csv('data/internships.csv',index=False)
 
 # generate moduleTypes
 

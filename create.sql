@@ -146,8 +146,7 @@ CREATE TABLE employee (
 CREATE TABLE finalExam (
     participantID int  NOT NULL,
     classID int  NOT NULL,
-    examDate datetime  NOT NULL,
-    passed bit  NOT NULL,
+    passed bit  NULL,
     CONSTRAINT finalExam_pk PRIMARY KEY (participantID,classID),
 	CONSTRAINT finalExam_chk_positive_ids CHECK (participantID > 0  AND classID > 0),
 	CONSTRAINT finalExam_chk_dateWatched_future CHECK (examDate <= GETDATE())
