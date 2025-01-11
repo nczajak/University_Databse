@@ -1,11 +1,11 @@
 -- Created by Vertabelo (http://vertabelo.com)
 -- Last modification date: 2025-01-08 20:03:39.105
 -- nie zapomnieć dodać courseParticipants wraz z relacjami do bazy na serwerze agh
--- IDENTITY(1,1) działa jak AUTO INCREMENT
+-- IDENTITY(0,1) działa jak AUTO INCREMENT
 -- tables
 -- Table: asyncMeetingDetails
 CREATE TABLE asyncMeetingDetails (
-    meetingID int  NOT NULL IDENTITY(1,1),
+    meetingID int  NOT NULL IDENTITY(0,1),
     participantID int  NOT NULL,
     dateWatched datetime  NULL,
     CONSTRAINT asyncMeetingDetails_pk PRIMARY KEY (meetingID,participantID),
@@ -15,7 +15,7 @@ CREATE TABLE asyncMeetingDetails (
 
 -- Table: building
 CREATE TABLE building (
-    buildingID int  NOT NULL IDENTITY(1,1),
+    buildingID int  NOT NULL IDENTITY(0,1),
     [address] nvarchar(50)  NOT NULL,
     CONSTRAINT building_pk PRIMARY KEY (buildingID),
 	CONSTRAINT building_chk_positive_ids CHECK (buildingID > 0)
@@ -24,7 +24,7 @@ CREATE TABLE building (
 
 -- Table: class
 CREATE TABLE class (
-    classID int  NOT NULL IDENTITY(1,1),
+    classID int  NOT NULL IDENTITY(0,1),
     [year] int  NOT NULL,
     [limit] int  NOT NULL,
     majorID int  NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE class (
 
 -- Table: company
 CREATE TABLE company (
-    companyID int  NOT NULL IDENTITY(1,1),
+    companyID int  NOT NULL IDENTITY(0,1),
     companyName nvarchar(50)  NOT NULL,
     [address] nvarchar(50)  NOT NULL,
     email varchar(50)  NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE company (
 
 -- Table: convention
 CREATE TABLE convention (
-    conventionID int  NOT NULL IDENTITY(1,1),
+    conventionID int  NOT NULL IDENTITY(0,1),
     classID int  NOT NULL,
     productID int  NOT NULL,
     [limit] int  NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE conventionDetails (
 
 -- Table: conventionType
 CREATE TABLE conventionType (
-    typeID int  NOT NULL IDENTITY(1,1),
+    typeID int  NOT NULL IDENTITY(0,1),
     typeName int  NOT NULL,
     CONSTRAINT conventionType_pk PRIMARY KEY (typeID),
 	CONSTRAINT conventionType_chk_positive_ids CHECK (typeID > 0)
@@ -93,7 +93,7 @@ CREATE TABLE conventionType (
 
 -- Table: course
 CREATE TABLE course (
-    courseID int  NOT NULL IDENTITY(1,1),
+    courseID int  NOT NULL IDENTITY(0,1),
     productID int  NOT NULL,
     courseName varchar(50)  NOT NULL,
     price decimal(7,2)  NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE courseParticipants (
 
 -- Table: employee
 CREATE TABLE employee (
-    employeeID int  NOT NULL IDENTITY(1,1),
+    employeeID int  NOT NULL IDENTITY(0,1),
     firstName nvarchar(50)  NOT NULL,
     middleName nvarchar(50)  NULL,
     lastName nvarchar(50)  NOT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE instructorDetails (
 
 -- Table: internship
 CREATE TABLE internship (
-    internshipID int  NOT NULL IDENTITY(1,1),
+    internshipID int  NOT NULL IDENTITY(0,1),
     companyID int  NOT NULL,
     startDate datetime  NOT NULL,
     supervisorID int  NOT NULL,
@@ -206,7 +206,7 @@ CREATE TABLE internshipSupervisor (
 
 -- Table: language
 CREATE TABLE language (
-    languageID int  NOT NULL IDENTITY(1,1),
+    languageID int  NOT NULL IDENTITY(0,1),
     languageName nvarchar(50)  NOT NULL,
     CONSTRAINT language_pk PRIMARY KEY (languageID),
 	CONSTRAINT language_chk_positive_ids CHECK (languageID > 0)
@@ -215,7 +215,7 @@ CREATE TABLE language (
 
 -- Table: major
 CREATE TABLE major (
-    majorID int  NOT NULL IDENTITY(1,1),
+    majorID int  NOT NULL IDENTITY(0,1),
     [name] nvarchar(50)  NOT NULL,
     [description] nvarchar(50)  NOT NULL,
     supervisorID int  NOT NULL,
@@ -226,7 +226,7 @@ CREATE TABLE major (
 
 -- Table: meeting
 CREATE TABLE meeting (
-    meetingID int  NOT NULL IDENTITY(1,1),
+    meetingID int  NOT NULL IDENTITY(0,1),
     subjectID int  NOT NULL,
     instructorID int  NOT NULL,
     translatorID int  NULL,
@@ -239,7 +239,7 @@ CREATE TABLE meeting (
 
 -- Table: meetingMode
 CREATE TABLE meetingMode (
-    meetingModeID int  NOT NULL IDENTITY(1,1),
+    meetingModeID int  NOT NULL IDENTITY(0,1),
     modeName nvarchar(50)  NOT NULL,
     CONSTRAINT meetingMode_pk PRIMARY KEY (meetingModeID),
 	CONSTRAINT meetingMode_chk_positive_ids CHECK (meetingModeID > 0)
@@ -269,7 +269,7 @@ CREATE TABLE meetingTime (
 
 -- Table: module
 CREATE TABLE module (
-    moduleID int  NOT NULL IDENTITY(1,1),
+    moduleID int  NOT NULL IDENTITY(0,1),
     courseID int  NOT NULL,
     [description] nvarchar(2047)  NOT NULL,
     moduleTypeID int  NOT NULL,
@@ -289,7 +289,7 @@ CREATE TABLE moduleSchedule (
 
 -- Table: moduleTypes
 CREATE TABLE moduleTypes (
-    moduleTypeID int  NOT NULL IDENTITY(1,1),
+    moduleTypeID int  NOT NULL IDENTITY(0,1),
     moduleName nvarchar(50)  NOT NULL,
     CONSTRAINT moduleTypes_pk PRIMARY KEY (moduleTypeID),
 	CONSTRAINT moduleTypes_chk_positive_ids CHECK (moduleTypeID > 0)
@@ -333,7 +333,7 @@ CREATE TABLE orderDetails (
 
 -- Table: orderStatus
 CREATE TABLE orderStatus (
-    statusID int  NOT NULL IDENTITY(1,1),
+    statusID int  NOT NULL IDENTITY(0,1),
     statusType nvarchar(32)  NOT NULL,
     CONSTRAINT orderStatus_pk PRIMARY KEY (statusID),
 	CONSTRAINT orderStatus_chk_positive_ids CHECK (statusID > 0)
@@ -342,7 +342,7 @@ CREATE TABLE orderStatus (
 
 -- Table: orders
 CREATE TABLE orders (
-    orderID int  NOT NULL IDENTITY(1,1),
+    orderID int  NOT NULL IDENTITY(0,1),
     participantID int  NOT NULL,
     paymentLink varchar(2047)  NOT NULL,
     orderDate datetime  NOT NULL,
@@ -353,7 +353,7 @@ CREATE TABLE orders (
 
 -- Table: participant
 CREATE TABLE participant (
-    participantID int  NOT NULL IDENTITY(1,1),
+    participantID int  NOT NULL IDENTITY(0,1),
     firstName nvarchar(50)  NOT NULL,
     lastName nvarchar(50)  NOT NULL,
     email nvarchar(50)  NOT NULL,
@@ -385,7 +385,7 @@ CREATE TABLE president (
 
 -- Table: productTypes
 CREATE TABLE productTypes (
-    typeID int  NOT NULL IDENTITY(1,1),
+    typeID int  NOT NULL IDENTITY(0,1),
     typeName varchar(50)  NOT NULL,
     CONSTRAINT productTypes_pk PRIMARY KEY (typeID),
 	CONSTRAINT productTypes_chk_positive_ids CHECK (typeID > 0)
@@ -394,7 +394,7 @@ CREATE TABLE productTypes (
 
 -- Table: products
 CREATE TABLE products (
-    productID int  NOT NULL IDENTITY(1,1),
+    productID int  NOT NULL IDENTITY(0,1),
     isAvailable bit  NOT NULL,
     typeID int  NOT NULL,
     CONSTRAINT products_pk PRIMARY KEY (productID),
@@ -415,7 +415,7 @@ CREATE TABLE roomDetails (
 
 -- Table: rooms
 CREATE TABLE rooms (
-    roomID int  NOT NULL IDENTITY(1,1),
+    roomID int  NOT NULL IDENTITY(0,1),
     buildingID int  NOT NULL,
     roomNumber int  NOT NULL,
     size int  NOT NULL,
@@ -453,7 +453,7 @@ CREATE TABLE studySchedule (
 
 -- Table: subject
 CREATE TABLE subject (
-    subjectID int  NOT NULL IDENTITY(1,1),
+    subjectID int  NOT NULL IDENTITY(0,1),
     subjectName nvarchar(50)  NOT NULL,
     [description] nvarchar(2000)  NOT NULL,
     CONSTRAINT subject_pk PRIMARY KEY (subjectID),
@@ -474,7 +474,7 @@ CREATE TABLE syllabus (
 
 -- Table: titles
 CREATE TABLE titles (
-    titleID int  NOT NULL IDENTITY(1,1),
+    titleID int  NOT NULL IDENTITY(0,1),
     titleName int  NOT NULL,
     CONSTRAINT titles_pk PRIMARY KEY (titleID),
 	CONSTRAINT titles_chk_positive_ids CHECK (titleID > 0)
@@ -498,7 +498,7 @@ CREATE TABLE translatorDetails (
 
 -- Table: webinar
 CREATE TABLE webinar (
-    webinarID int  NOT NULL IDENTITY(1,1),
+    webinarID int  NOT NULL IDENTITY(0,1),
     productID int  NOT NULL,
     price decimal(7,2)  NULL,
     webinarName nvarchar(50)  NOT NULL,
