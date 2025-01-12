@@ -61,8 +61,8 @@ CREATE TABLE convention (
     classID int  NOT NULL,
     productID int  NOT NULL,
     [limit] int  NOT NULL,
-    price int  NOT NULL,
-    priceForStudents int  NOT NULL,
+    price decimal(7,2)  NOT NULL,
+    priceForStudents decimal(7,2)  NOT NULL,
     conventionTypeID int  NOT NULL,
     CONSTRAINT convention_pk PRIMARY KEY (conventionID),
 	CONSTRAINT convention_chk_positive_ids CHECK (classID > 0 AND conventionID > 0  AND productID > 0 AND conventionTypeID > 0),
@@ -85,7 +85,7 @@ CREATE TABLE conventionDetails (
 -- Table: conventionType
 CREATE TABLE conventionType (
     typeID int  NOT NULL IDENTITY(0,1),
-    typeName int  NOT NULL,
+    typeName nvarchar(50)  NOT NULL,
     CONSTRAINT conventionType_pk PRIMARY KEY (typeID),
 	CONSTRAINT conventionType_chk_positive_ids CHECK (typeID > 0)
 
@@ -95,7 +95,6 @@ CREATE TABLE conventionType (
 CREATE TABLE course (
     courseID int  NOT NULL IDENTITY(0,1),
     productID int  NOT NULL,
-    courseName varchar(50)  NOT NULL,
     price decimal(7,2)  NOT NULL,
     advancePrice decimal(7,2)  NOT NULL,
     [limit] int  NULL,
@@ -148,8 +147,7 @@ CREATE TABLE finalExam (
     classID int  NOT NULL,
     passed bit  NULL,
     CONSTRAINT finalExam_pk PRIMARY KEY (participantID,classID),
-	CONSTRAINT finalExam_chk_positive_ids CHECK (participantID > 0  AND classID > 0),
-	CONSTRAINT finalExam_chk_dateWatched_future CHECK (examDate <= GETDATE())
+	CONSTRAINT finalExam_chk_positive_ids CHECK (participantID > 0  AND classID > 0)
 
 
 );
@@ -307,7 +305,6 @@ CREATE TABLE onlineAsyncMeeting (
 -- Table: onlineSyncMeeting
 CREATE TABLE onlineSyncMeeting (
     meetingID int  NOT NULL,
-    [date] datetime  NOT NULL,
     meetingLink varchar(2047)  NOT NULL,
     recordingLink varchar(2047)  NOT NULL,
     CONSTRAINT onlineSyncMeeting_pk PRIMARY KEY (meetingID),
@@ -429,7 +426,6 @@ CREATE TABLE rooms (
 CREATE TABLE stationaryMeeting (
     meetingID int  NOT NULL,
     roomID int  NOT NULL,
-    [date] datetime  NOT NULL,
     CONSTRAINT stationaryMeeting_pk PRIMARY KEY (meetingID),
 	CONSTRAINT stationaryMeeting_chk_positive_ids CHECK (roomID > 0 AND meetingID > 0)
 );
@@ -474,7 +470,7 @@ CREATE TABLE syllabus (
 -- Table: titles
 CREATE TABLE titles (
     titleID int  NOT NULL IDENTITY(0,1),
-    titleName int  NOT NULL,
+    titleName nvarchar(50)  NOT NULL,
     CONSTRAINT titles_pk PRIMARY KEY (titleID),
 	CONSTRAINT titles_chk_positive_ids CHECK (titleID > 0)
 );
