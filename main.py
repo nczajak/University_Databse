@@ -812,6 +812,8 @@ for i in range(len(students_df)):
         }
         convention_participants.append(convention_student)    
 convention_participants_df = pd.DataFrame(convention_participants)
+convention_participants_df = convention_participants_df.sort_values(by='conventionID')
+convention_participants_df = convention_participants_df.reset_index(drop=True)
 convention_participants_df.to_csv('data/conventionDetails.csv', index=False)
 
 # generate internshipDetails
@@ -875,11 +877,122 @@ while(i < meeting_amount):
             i=i+1
     
 module_schedule_df = pd.DataFrame(moduleSchedule)
-module_schedule_df.to_csv('data/moduleSchedule.csv', index=False)
 study_schedule_df = pd.DataFrame(studySchedule)
+module_schedule_df = module_schedule_df.sort_values(by='moduleID')
+study_schedule_df = study_schedule_df.sort_values(by='conventionID')
+module_schedule_df = module_schedule_df.reset_index(drop=True)
+study_schedule_df = study_schedule_df.reset_index(drop=True)
 study_schedule_df.to_csv('data/studySchedule.csv', index=False)
+module_schedule_df.to_csv('data/moduleSchedule.csv', index=False)
 
 #generate meetingParticipants and asyncMeetingDetails
+#conventionParticipants, studySchedule, moduleSchedule, courseParticipants, module mają być posortowane
 
+meetingParticipants = []
+asyncMeetingParticipants = []
+
+# ze strony studiów 
+
+a_index = 0
+b_index = 0
+
+for i in range(len(conventions_df)):
+    studentIDs = []
+    while(len(convention_participants_df) > a_index and i == convention_participants_df['conventionID'][a_index]):
+        studentIDs.append(convention_participants_df['studentID'][a_index])
+        a_index = a_index + 1
+    # Mamy listę studentów na zjeździe
+    meetingIDs = []
+    while(len(study_schedule_df) > b_index and i == study_schedule_df['conventionID'][b_index]):
+        meetingIDs.append(study_schedule_df['meetingID'][b_index])
+        b_index = b_index + 1
+    # Mamy listę spotkań na zjeździe
+    for meeting in meetingIDs:
+        if(meetings_df['meetingMode'][meeting] == 1): 
+            for student in studentIDs:
+                meeting_participant = {
+                    "meetingID": meeting,
+                    "participantID": student,
+                    "dateWatched": random.choices([fake.date_time_between(start_date='-6y').strftime("%m/%d/%Y, %H:%M:%S"), None], weights=[90, 10], k=1)[0]
+                }
+                asyncMeetingParticipants.append(meeting_participant)
+        else:
+            for student in studentIDs:
+                meeting_participant = {
+                    "meetingID": meeting,
+                    "participantID": student,
+                    "wasPresent": random.choices([1, 0], weights=[90, 10], k=1)[0] # można ustawić żeby dla przyszłych wydarzeń było None
+                }
+                meetingParticipants.append(meeting_participant)
+
+# dla uproszczenia zrobić moduleParticipants
+modules_df = modules_df.sort_values(by='courseID')
+modules_df = modules_df.reset_index(drop=False)
+course_participants_df = course_participants_df.sort_values(by='courseID')
+course_participants_df = course_participants_df.reset_index(drop=True)
+module_participants = []
+a_index = 0
+b_index = 0
+
+for i in range(len(course_df)):
+    studentIDs = []
+    while(len(course_participants_df) > a_index and i == course_participants_df['courseID'][a_index]):
+        studentIDs.append(course_participants_df['studentID'][a_index])
+        a_index = a_index + 1
+    moduleIDs = []
+    while(len(modules_df) > b_index and i == modules_df['courseID'][b_index]):
+        moduleIDs.append(modules_df['index'][b_index])
+        b_index = b_index + 1
+    for student in studentIDs:
+        for module in moduleIDs:
+            moduleParticipant = {
+                "participantID": student,
+                "moduleID": module
+            }
+            module_participants.append(moduleParticipant)
+module_participants_df = pd.DataFrame(module_participants)
+
+module_participants_df = module_participants_df.sort_values(by='moduleID')
+module_participants_df = module_participants_df.reset_index(drop=True)
+
+# Ze strony kursów
+
+a_index = 0
+b_index = 0
+
+for i in range(len(modules_df)):
+    studentIDs = []
+    while(len(module_participants_df) > a_index and i == module_participants_df['moduleID'][a_index]):
+        studentIDs.append(module_participants_df['participantID'][a_index])
+        a_index = a_index + 1
+    # Mamy listę studentów na module
+    meetingIDs = []
+    while(len(module_schedule_df) > b_index and i == module_schedule_df['moduleID'][b_index]):
+        meetingIDs.append(module_schedule_df['meetingID'][b_index])
+        b_index = b_index + 1
+    # Mamy listę spotkań na module
+    for meeting in meetingIDs:
+        if(meetings_df['meetingMode'][meeting] == 1): 
+            for student in studentIDs:
+                meeting_participant = {
+                    "meetingID": meeting,
+                    "participantID": student,
+                    "dateWatched": random.choices([fake.date_time_between(start_date='-6y').strftime("%m/%d/%Y, %H:%M:%S"), None], weights=[90, 10], k=1)[0]
+                }
+                asyncMeetingParticipants.append(meeting_participant)
+        else:
+            for student in studentIDs:
+                meeting_participant = {
+                    "meetingID": meeting,
+                    "participantID": student,
+                    "wasPresent": random.choices([1, 0], weights=[90, 10], k=1)[0] # można ustawić żeby dla przyszłych wydarzeń było None
+                }
+                meetingParticipants.append(meeting_participant)
+
+
+meeting_participants_df = pd.DataFrame(meetingParticipants)
+async_meeting_details_df = pd.DataFrame(asyncMeetingParticipants)
+meeting_participants_df.to_csv('data/meetingParticipants.csv', index=False)
+async_meeting_details_df.to_csv('data/asyncMeetingDetails.csv', index=False)
 
 
