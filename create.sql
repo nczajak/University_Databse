@@ -10,7 +10,7 @@ CREATE TABLE asyncMeetingDetails (
     dateWatched datetime  NULL,
     CONSTRAINT asyncMeetingDetails_pk PRIMARY KEY (meetingID,participantID),
 	CONSTRAINT asyncMeetingDetails_chk_dateWatched_future CHECK (dateWatched <= GETDATE()),
-    CONSTRAINT asyncMeetingDetails_chk_positive_ids CHECK (meetingID > 0 AND participantID > 0)
+    CONSTRAINT asyncMeetingDetails_chk_positive_ids CHECK (meetingID >=0 AND participantID >= 0)
 );
 
 -- Table: building
@@ -18,7 +18,7 @@ CREATE TABLE building (
     buildingID int  NOT NULL IDENTITY(0,1),
     [address] nvarchar(50)  NOT NULL,
     CONSTRAINT building_pk PRIMARY KEY (buildingID),
-	CONSTRAINT building_chk_positive_ids CHECK (buildingID > 0)
+	CONSTRAINT building_chk_positive_ids CHECK (buildingID >= 0)
 
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE class (
     term int  NOT NULL,
     price decimal(7,2)  NOT NULL,
     CONSTRAINT class_pk PRIMARY KEY (classID),
-	CONSTRAINT class_chk_positive_ids CHECK (classID > 0 AND majorID > 0  AND productID > 0 AND languageID > 0),
+	CONSTRAINT class_chk_positive_ids CHECK (classID >= 0 AND majorID >= 0  AND productID >= 0 AND languageID >= 0),
 	CONSTRAINT class_chk_positive_limit CHECK ( [limit] >= 30 AND limit <= 100),
 	CONSTRAINT class_chk_correct_term CHECK (0 < term AND term < 8),
 	CONSTRAINT class_chk_correct_price CHECK (price > 0)
@@ -48,7 +48,7 @@ CREATE TABLE company (
     email varchar(50)  NOT NULL,
     phone varchar(16)  NOT NULL,
     CONSTRAINT company_pk PRIMARY KEY (companyID),
-	CONSTRAINT company_chk_positive_ids CHECK (companyID > 0),
+	CONSTRAINT company_chk_positive_ids CHECK (companyID >= 0),
 	CONSTRAINT company_chk_correct_email CHECK (email LIKE '%@%.%'),
 	CONSTRAINT company_chk_correct_phone CHECK (phone LIKE '%[0-9 ]%')
 
@@ -65,7 +65,7 @@ CREATE TABLE convention (
     priceForStudents decimal(7,2)  NOT NULL,
     conventionTypeID int  NOT NULL,
     CONSTRAINT convention_pk PRIMARY KEY (conventionID),
-	CONSTRAINT convention_chk_positive_ids CHECK (classID > 0 AND conventionID > 0  AND productID > 0 AND conventionTypeID > 0),
+	CONSTRAINT convention_chk_positive_ids CHECK (classID >= 0 AND conventionID >= 0  AND productID >= 0 AND conventionTypeID >= 0),
 	CONSTRAINT convention_chk_positive_limit CHECK ( [limit] >= 30 AND limit <= 100),
 	CONSTRAINT convention_chk_correct_price CHECK (price > 0),
 	CONSTRAINT convention_chk_correct_priceForStudents CHECK (priceForStudents > 0)
@@ -78,7 +78,7 @@ CREATE TABLE conventionDetails (
     conventionID int  NOT NULL,
     paymentDate datetime  NOT NULL,
     CONSTRAINT conventionDetails_pk PRIMARY KEY (studentID,conventionID),
-	CONSTRAINT conventionDetails_chk_positive_ids CHECK (conventionID > 0  AND studentID > 0)
+	CONSTRAINT conventionDetails_chk_positive_ids CHECK (conventionID >= 0  AND studentID >= 0)
 
 );
 
@@ -87,7 +87,7 @@ CREATE TABLE conventionType (
     typeID int  NOT NULL IDENTITY(0,1),
     typeName nvarchar(50)  NOT NULL,
     CONSTRAINT conventionType_pk PRIMARY KEY (typeID),
-	CONSTRAINT conventionType_chk_positive_ids CHECK (typeID > 0)
+	CONSTRAINT conventionType_chk_positive_ids CHECK (typeID >= 0)
 
 );
 
@@ -99,7 +99,7 @@ CREATE TABLE course (
     advancePrice decimal(7,2)  NOT NULL,
     [limit] int  NULL,
     CONSTRAINT course_pk PRIMARY KEY (courseID),
-	CONSTRAINT course_chk_positive_ids CHECK (courseID > 0  AND productID > 0),
+	CONSTRAINT course_chk_positive_ids CHECK (courseID >= 0  AND productID >= 0),
 	CONSTRAINT course_chk_correct_price CHECK (price > 0),
 	CONSTRAINT course_chk_correct_advancePrice CHECK (advancePrice > 0),
 	CONSTRAINT course_chk_positive_limit CHECK ( [limit] >= 30 AND limit <= 100)
@@ -114,7 +114,7 @@ CREATE TABLE courseDetails (
     [description] nvarchar(2000)  NOT NULL,
     languageID int  NOT NULL,
     CONSTRAINT courseDetails_pk PRIMARY KEY (courseID),
-	CONSTRAINT courseDetails_chk_positive_ids CHECK (courseID > 0  AND languageID > 0)
+	CONSTRAINT courseDetails_chk_positive_ids CHECK (courseID >= 0  AND languageID >= 0)
 
 );
 
@@ -135,7 +135,7 @@ CREATE TABLE employee (
     email nvarchar(50)  NOT NULL,
     [address] nvarchar(50)  NOT NULL,
     CONSTRAINT employee_pk PRIMARY KEY (employeeID),
-	CONSTRAINT employee_chk_positive_ids CHECK (employeeID > 0),
+	CONSTRAINT employee_chk_positive_ids CHECK (employeeID >= 0),
 	CONSTRAINT employee_chk_correct_email CHECK (email LIKE '%@%.%'),
 	CONSTRAINT employee_chk_correct_phone CHECK (phone LIKE '%[0-9 ]%')
 
@@ -157,7 +157,7 @@ CREATE TABLE instructor (
     instructorID int  NOT NULL,
     titleID int  NOT NULL,
     CONSTRAINT instructor_pk PRIMARY KEY (instructorID),
-	CONSTRAINT instructor_chk_positive_ids CHECK (instructorID > 0  AND titleID > 0)
+	CONSTRAINT instructor_chk_positive_ids CHECK (instructorID >= 0  AND titleID >= 0)
 
 );
 
@@ -166,7 +166,7 @@ CREATE TABLE instructorDetails (
     subjectID int  NOT NULL,
     instructorID int  NOT NULL,
     CONSTRAINT instructorDetails_pk PRIMARY KEY (subjectID,instructorID),
-	CONSTRAINT instructorDetails_chk_positive_ids CHECK (instructorID > 0  AND subjectID > 0)
+	CONSTRAINT instructorDetails_chk_positive_ids CHECK (instructorID >= 0  AND subjectID >= 0)
 
 );
 
@@ -177,7 +177,7 @@ CREATE TABLE internship (
     startDate datetime  NOT NULL,
     supervisorID int  NOT NULL,
     CONSTRAINT internship_pk PRIMARY KEY (internshipID),
-	CONSTRAINT internship_chk_positive_ids CHECK (internshipID > 0  AND companyID > 0 AND supervisorID > 0)
+	CONSTRAINT internship_chk_positive_ids CHECK (internshipID >= 0  AND companyID >= 0 AND supervisorID >= 0)
 
 );
 
@@ -188,7 +188,7 @@ CREATE TABLE internshipDetails (
     [date] date  NOT NULL,
     wasPresent bit  NOT NULL,
     CONSTRAINT internshipDetails_pk PRIMARY KEY (internshipID,participantID,date),
-	CONSTRAINT internshipDetails_chk_positive_ids CHECK (internshipID > 0  AND participantID > 0),
+	CONSTRAINT internshipDetails_chk_positive_ids CHECK (internshipID >= 0  AND participantID >= 0),
 	CONSTRAINT internshipDetails_chk_dateWatched_future CHECK ([date] <= GETDATE())
 
 );
@@ -197,7 +197,7 @@ CREATE TABLE internshipDetails (
 CREATE TABLE internshipSupervisor (
     internshipSupervisorID int  NOT NULL,
     CONSTRAINT internshipSupervisor_pk PRIMARY KEY (internshipSupervisorID),
-	CONSTRAINT internshipSupervisor_chk_positive_ids CHECK (internshipSupervisorID > 0)
+	CONSTRAINT internshipSupervisor_chk_positive_ids CHECK (internshipSupervisorID >= 0)
 
 );
 
@@ -206,7 +206,7 @@ CREATE TABLE language (
     languageID int  NOT NULL IDENTITY(0,1),
     languageName nvarchar(50)  NOT NULL,
     CONSTRAINT language_pk PRIMARY KEY (languageID),
-	CONSTRAINT language_chk_positive_ids CHECK (languageID > 0)
+	CONSTRAINT language_chk_positive_ids CHECK (languageID >= 0)
 
 );
 
@@ -217,7 +217,7 @@ CREATE TABLE major (
     [description] nvarchar(50)  NOT NULL,
     supervisorID int  NOT NULL,
     CONSTRAINT major_pk PRIMARY KEY (majorID),
-	CONSTRAINT major_chk_positive_ids CHECK (majorID > 0  AND supervisorID > 0)
+	CONSTRAINT major_chk_positive_ids CHECK (majorID >= 0  AND supervisorID >= 0)
 
 );
 
@@ -230,7 +230,7 @@ CREATE TABLE meeting (
     languageID int  NOT NULL,
     meetingModeID int  NOT NULL,
     CONSTRAINT meeting_pk PRIMARY KEY (meetingID),
-	CONSTRAINT meeting_chk_positive_ids CHECK (meetingID > 0  AND subjectID > 0 AND instructorID > 0 AND translatorID > 0 AND languageID > 0 AND meetingModeID > 0)
+	CONSTRAINT meeting_chk_positive_ids CHECK (meetingID >= 0  AND subjectID >= 0 AND instructorID >= 0 AND translatorID >= 0 AND languageID >= 0 AND meetingModeID >= 0)
 
 );
 
@@ -239,7 +239,7 @@ CREATE TABLE meetingMode (
     meetingModeID int  NOT NULL IDENTITY(0,1),
     modeName nvarchar(50)  NOT NULL,
     CONSTRAINT meetingMode_pk PRIMARY KEY (meetingModeID),
-	CONSTRAINT meetingMode_chk_positive_ids CHECK (meetingModeID > 0)
+	CONSTRAINT meetingMode_chk_positive_ids CHECK (meetingModeID >= 0)
 
 );
 
@@ -249,7 +249,7 @@ CREATE TABLE meetingParticipants (
     participantID int  NOT NULL,
     wasPresent bit  NOT NULL,
     CONSTRAINT meetingParticipants_pk PRIMARY KEY (meetingID),
-	CONSTRAINT meetingParticipants_chk_positive_ids CHECK (meetingID > 0  AND participantID > 0)
+	CONSTRAINT meetingParticipants_chk_positive_ids CHECK (meetingID >= 0  AND participantID >= 0)
 
 );
 
@@ -259,7 +259,7 @@ CREATE TABLE meetingTime (
     startTime datetime  NOT NULL,
     endTime datetime  NOT NULL,
     CONSTRAINT meetingTime_pk PRIMARY KEY (meetingID),
-	CONSTRAINT meetingTime_chk_positive_ids CHECK (meetingID > 0),
+	CONSTRAINT meetingTime_chk_positive_ids CHECK (meetingID >= 0),
 	CONSTRAINT meetingTime_chk_correct_startTime_and_endTime CHECK (endTime>startTime)
 
 );
@@ -271,7 +271,7 @@ CREATE TABLE module (
     [description] nvarchar(2047)  NOT NULL,
     moduleTypeID int  NOT NULL,
     CONSTRAINT module_pk PRIMARY KEY (moduleID),
-	CONSTRAINT module_chk_positive_ids CHECK (moduleID > 0  AND courseID > 0  AND moduleTypeID > 0)
+	CONSTRAINT module_chk_positive_ids CHECK (moduleID >= 0  AND courseID >= 0  AND moduleTypeID >= 0)
 
 );
 
@@ -280,7 +280,7 @@ CREATE TABLE moduleSchedule (
     meetingID int  NOT NULL,
     moduleID int  NOT NULL,
     CONSTRAINT moduleSchedule_pk PRIMARY KEY (meetingID,moduleID),
-	CONSTRAINT moduleSchedule_chk_positive_ids CHECK (meetingID > 0  AND moduleID > 0)
+	CONSTRAINT moduleSchedule_chk_positive_ids CHECK (meetingID >= 0  AND moduleID >= 0)
 
 );
 
@@ -289,7 +289,7 @@ CREATE TABLE moduleTypes (
     moduleTypeID int  NOT NULL IDENTITY(0,1),
     moduleName nvarchar(50)  NOT NULL,
     CONSTRAINT moduleTypes_pk PRIMARY KEY (moduleTypeID),
-	CONSTRAINT moduleTypes_chk_positive_ids CHECK (moduleTypeID > 0)
+	CONSTRAINT moduleTypes_chk_positive_ids CHECK (moduleTypeID >= 0)
 
 );
 
@@ -298,7 +298,7 @@ CREATE TABLE onlineAsyncMeeting (
     meetingID int  NOT NULL,
     recordingLink nvarchar(2083)  NOT NULL,
     CONSTRAINT onlineAsyncMeeting_pk PRIMARY KEY (meetingID),
-	CONSTRAINT onlineAsyncMeeting_chk_positive_ids CHECK (meetingID > 0)
+	CONSTRAINT onlineAsyncMeeting_chk_positive_ids CHECK (meetingID >= 0)
 
 );
 
@@ -308,7 +308,7 @@ CREATE TABLE onlineSyncMeeting (
     meetingLink varchar(2047)  NOT NULL,
     recordingLink varchar(2047)  NOT NULL,
     CONSTRAINT onlineSyncMeeting_pk PRIMARY KEY (meetingID),
-	CONSTRAINT onlineSyncMeeting_chk_positive_ids CHECK (meetingID > 0)
+	CONSTRAINT onlineSyncMeeting_chk_positive_ids CHECK (meetingID >= 0)
 
 );
 
@@ -321,7 +321,7 @@ CREATE TABLE orderDetails (
     statusID int  NOT NULL,
     price decimal(7,2)  NOT NULL,
     CONSTRAINT orderDetails_pk PRIMARY KEY (orderID,productID),
-	CONSTRAINT orderDetails_chk_positive_ids CHECK (orderID > 0  AND productID > 0  AND statusID > 0),
+	CONSTRAINT orderDetails_chk_positive_ids CHECK (orderID >= 0  AND productID >= 0  AND statusID >= 0),
 	CONSTRAINT orderDetails_chk_fullPaymentDate_and_advancePaymentDate CHECK (fullPaymentDate>advancePaymentDate),
 	CONSTRAINT orderDetails_chk_price CHECK (price>0)
 
@@ -332,7 +332,7 @@ CREATE TABLE orderStatus (
     statusID int  NOT NULL IDENTITY(0,1),
     statusType nvarchar(32)  NOT NULL,
     CONSTRAINT orderStatus_pk PRIMARY KEY (statusID),
-	CONSTRAINT orderStatus_chk_positive_ids CHECK (statusID > 0)
+	CONSTRAINT orderStatus_chk_positive_ids CHECK (statusID >= 0)
 
 );
 
@@ -343,7 +343,7 @@ CREATE TABLE orders (
     paymentLink varchar(2047)  NOT NULL,
     orderDate datetime  NOT NULL,
     CONSTRAINT orders_pk PRIMARY KEY (orderID),
-	CONSTRAINT orders_chk_positive_ids CHECK (orderID > 0  AND participantID > 0)
+	CONSTRAINT orders_chk_positive_ids CHECK (orderID >= 0  AND participantID >= 0)
 
 );
 
@@ -356,7 +356,7 @@ CREATE TABLE participant (
     phone nvarchar(50)  NOT NULL,
     [address] nvarchar(50)  NOT NULL,
     CONSTRAINT participant_pk PRIMARY KEY (participantID),
-	CONSTRAINT participant_chk_positive_ids CHECK (participantID > 0),
+	CONSTRAINT participant_chk_positive_ids CHECK (participantID >= 0),
 	CONSTRAINT participant_chk_correct_email CHECK (email LIKE '%@%.%'),
 	CONSTRAINT participant_chk_correct_phone CHECK (phone LIKE '%[0-9 ]%')
 
@@ -367,7 +367,7 @@ CREATE TABLE paymentDeferral (
     orderID int  NOT NULL,
     newDueDate datetime  NOT NULL,
     CONSTRAINT paymentDeferral_pk PRIMARY KEY (orderID),
-	CONSTRAINT paymentDeferral_chk_positive_ids CHECK (orderID > 0)
+	CONSTRAINT paymentDeferral_chk_positive_ids CHECK (orderID >= 0)
 );
 
 -- Table: president
@@ -375,7 +375,7 @@ CREATE TABLE president (
     presidentID int  NOT NULL,
     titleID int  NOT NULL,
     CONSTRAINT president_pk PRIMARY KEY (presidentID),
-	CONSTRAINT president_chk_positive_ids CHECK (presidentID > 0 AND titleID > 0)
+	CONSTRAINT president_chk_positive_ids CHECK (presidentID >= 0 AND titleID >= 0)
 
 );
 
@@ -384,7 +384,7 @@ CREATE TABLE productTypes (
     typeID int  NOT NULL IDENTITY(0,1),
     typeName varchar(50)  NOT NULL,
     CONSTRAINT productTypes_pk PRIMARY KEY (typeID),
-	CONSTRAINT productTypes_chk_positive_ids CHECK (typeID > 0)
+	CONSTRAINT productTypes_chk_positive_ids CHECK (typeID >= 0)
 
 );
 
@@ -394,7 +394,7 @@ CREATE TABLE products (
     isAvailable bit  NOT NULL,
     typeID int  NOT NULL,
     CONSTRAINT products_pk PRIMARY KEY (productID),
-	CONSTRAINT products_chk_positive_ids CHECK (productID > 0 AND typeID > 0)
+	CONSTRAINT products_chk_positive_ids CHECK (productID >= 0 AND typeID >= 0)
 
 );
 
@@ -405,7 +405,7 @@ CREATE TABLE roomDetails (
     endTime datetime  NOT NULL,
     usedBy int  NOT NULL,
     CONSTRAINT roomDetails_pk PRIMARY KEY (roomID),
-	CONSTRAINT roomDetails_chk_positive_ids CHECK (roomID > 0 AND usedBy > 0),
+	CONSTRAINT roomDetails_chk_positive_ids CHECK (roomID >= 0 AND usedBy >= 0),
 	CONSTRAINT roomDetails_chk_sartTime_and_endTime CHECK (startTime<endTime)
 );
 
@@ -416,7 +416,7 @@ CREATE TABLE rooms (
     roomNumber int  NOT NULL,
     size int  NOT NULL,
     CONSTRAINT rooms_pk PRIMARY KEY (roomID),
-	CONSTRAINT rooms_chk_positive_ids CHECK (roomID > 0 AND buildingID > 0),
+	CONSTRAINT rooms_chk_positive_ids CHECK (roomID >= 0 AND buildingID >= 0),
 	CONSTRAINT rooms_chk_correct_size CHECK (size > 0 AND size <=40),
 	CONSTRAINT rooms_chk_correct_roomNumber CHECK (roomNumber>0)
 
@@ -427,7 +427,7 @@ CREATE TABLE stationaryMeeting (
     meetingID int  NOT NULL,
     roomID int  NOT NULL,
     CONSTRAINT stationaryMeeting_pk PRIMARY KEY (meetingID),
-	CONSTRAINT stationaryMeeting_chk_positive_ids CHECK (roomID > 0 AND meetingID > 0)
+	CONSTRAINT stationaryMeeting_chk_positive_ids CHECK (roomID >= 0 AND meetingID >= 0)
 );
 
 -- Table: students
@@ -435,7 +435,7 @@ CREATE TABLE students (
     participantID int  NOT NULL,
     classID int  NOT NULL,
     CONSTRAINT students_pk PRIMARY KEY (participantID,classID),
-	CONSTRAINT students_chk_positive_ids CHECK (participantID > 0 AND classID > 0)
+	CONSTRAINT students_chk_positive_ids CHECK (participantID >= 0 AND classID >= 0)
 );
 
 -- Table: studySchedule
@@ -443,7 +443,7 @@ CREATE TABLE studySchedule (
     meetingID int  NOT NULL,
     conventionID int  NOT NULL,
     CONSTRAINT studySchedule_pk PRIMARY KEY (meetingID,conventionID),
-	CONSTRAINT studySchedule_chk_positive_ids CHECK (meetingID > 0 AND conventionID > 0)
+	CONSTRAINT studySchedule_chk_positive_ids CHECK (meetingID >= 0 AND conventionID >= 0)
 );
 
 -- Table: subject
@@ -452,7 +452,7 @@ CREATE TABLE subject (
     subjectName nvarchar(50)  NOT NULL,
     [description] nvarchar(2000)  NOT NULL,
     CONSTRAINT subject_pk PRIMARY KEY (subjectID),
-	CONSTRAINT subject_chk_positive_ids CHECK (subjectID > 0)
+	CONSTRAINT subject_chk_positive_ids CHECK (subjectID >= 0)
 );
 
 -- Table: syllabus
@@ -462,7 +462,7 @@ CREATE TABLE syllabus (
     requiredHours int  NOT NULL,
     term int  NOT NULL,
     CONSTRAINT syllabus_pk PRIMARY KEY (majorID,subjectID),
-	CONSTRAINT syllabus_chk_positive_ids CHECK (majorID > 0 AND subjectID > 0),
+	CONSTRAINT syllabus_chk_positive_ids CHECK (majorID >= 0 AND subjectID >= 0),
 	CONSTRAINT syllabus_chk_requiredHour CHECK (requiredHours > 0),
 	CONSTRAINT syllabus_chk_term CHECK ( term >=1 AND term <=7)
 );
@@ -472,14 +472,14 @@ CREATE TABLE titles (
     titleID int  NOT NULL IDENTITY(0,1),
     titleName nvarchar(50)  NOT NULL,
     CONSTRAINT titles_pk PRIMARY KEY (titleID),
-	CONSTRAINT titles_chk_positive_ids CHECK (titleID > 0)
+	CONSTRAINT titles_chk_positive_ids CHECK (titleID >= 0)
 );
 
 -- Table: translator
 CREATE TABLE translator (
     translatorID int  NOT NULL,
     CONSTRAINT translator_pk PRIMARY KEY (translatorID),
-	CONSTRAINT translator_chk_positive_ids CHECK (translatorID > 0)
+	CONSTRAINT translator_chk_positive_ids CHECK (translatorID >= 0)
 
 );
 
@@ -488,7 +488,7 @@ CREATE TABLE translatorDetails (
     translatorID int  NOT NULL,
     languageID int  NOT NULL,
     CONSTRAINT translatorDetails_pk PRIMARY KEY (translatorID,languageID),
-	CONSTRAINT translatorDetails_chk_positive_ids CHECK (translatorID > 0 AND languageID > 0)
+	CONSTRAINT translatorDetails_chk_positive_ids CHECK (translatorID >= 0 AND languageID >= 0)
 );
 
 -- Table: webinar
@@ -498,7 +498,7 @@ CREATE TABLE webinar (
     price decimal(7,2)  NULL,
     webinarName nvarchar(50)  NOT NULL,
     CONSTRAINT webinar_pk PRIMARY KEY (webinarID),
-	CONSTRAINT webinar_chk_positive_ids CHECK (webinarID > 0 AND productID > 0),
+	CONSTRAINT webinar_chk_positive_ids CHECK (webinarID >= 0 AND productID >= 0),
 	CONSTRAINT webinar_chk_price CHECK (price>0)
 );
 
@@ -512,7 +512,7 @@ CREATE TABLE webinarDetails (
     translatorID int  NULL,
     languageID int  NOT NULL,
     CONSTRAINT webinarDetails_pk PRIMARY KEY (webinarID),
-	CONSTRAINT webinarDetails_chk_positive_ids CHECK (translatorID > 0 AND languageID > 0 AND webinarID > 0 AND instructorID > 0)
+	CONSTRAINT webinarDetails_chk_positive_ids CHECK (translatorID >= 0 AND languageID >= 0 AND webinarID >= 0 AND instructorID >= 0)
 
 );
 
@@ -522,7 +522,7 @@ CREATE TABLE webinarParticipants (
     participantID int  NOT NULL,
     accessUntill datetime  NOT NULL,
     CONSTRAINT webinarParticipants_pk PRIMARY KEY (webinarID,participantID),
-	CONSTRAINT webinarParticipants_chk_positive_ids CHECK (participantID > 0 AND webinarID > 0)
+	CONSTRAINT webinarParticipants_chk_positive_ids CHECK (participantID >= 0 AND webinarID >= 0)
 );
 
 -- foreign keys
