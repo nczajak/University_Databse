@@ -1,7 +1,7 @@
 --Widoki
---póki co przepisane z dokumentu
+--pï¿½ki co przepisane z dokumentu
 
---1 Wyœwietlenie uczestników przysz³ych wydarzeñ wraz typem wydarzenia(stacjonarne/niestacjonarne) i ID wydarzenia
+--1 Wyï¿½wietlenie uczestnikï¿½w przyszï¿½ych wydarzeï¿½ wraz typem wydarzenia(stacjonarne/niestacjonarne) i ID wydarzenia
 Create view future_meetings_participants as
 Select distinct  p.participantID as ID ,p.firstName + ' ' + p.lastName as Name, m.meetingID as 'ID spotkania' , 'stationary' as type
 from meetingTime as mt
@@ -18,7 +18,7 @@ inner join participant as p on p.participantID = mp.participantID
 where mt.startTime > GETDATE() and m.meetingID in (select meetingID from onlineSyncMeeting)
 go
 
---2 Wyswietlenie listy osób które jeszcze nie zap³aci³y
+--2 Wyswietlenie listy osï¿½b ktï¿½re jeszcze nie zapï¿½aciï¿½y
 Create view list_of_all_debtors as
 select distinct p.participantID as ID, p.firstName + ' ' + p.lastName as Name
 from orderDetails as od
@@ -28,7 +28,7 @@ inner join participant as p on p.participantID = o.participantID
 where os.statusType = 'ordered'
 go
 
---3 Lista wszystkich z zaleg³ymi p³atnoœciami
+--3 Lista wszystkich z zalegï¿½ymi pï¿½atnoï¿½ciami
 Create view list_of_all_overdue_debtors as
 select p.participantID as ID, p.firstName + ' ' + p.lastName as Name
 from orderDetails as od
@@ -39,7 +39,7 @@ left outer join paymentDeferral as pd on o.orderID=pd.orderID
 where os.statusType = 'ordered' and GETDATE() > isnull(pd.newDueDate,od.fullPaymentDate)
 go
 
---4 przychoody z webinarów
+--4 przychoody z webinarï¿½w
 create view webinar_income_list as
 select w.productID as ID, w.webinarName as name, sum(od.price) as income
 from webinar as w
@@ -50,7 +50,7 @@ where os.statusType = 'paid'
 group by w.productID, w.webinarName
 go
 
---5 przychody z kursów z podzia³em na przychody za pe³ne kwoty i zaliczki
+--5 przychody z kursï¿½w z podziaï¿½em na przychody za peï¿½ne kwoty i zaliczki
 create view courses_income_list_with_status as
 select 
 c.productID as ID,
@@ -84,7 +84,7 @@ from courses_income_list_with_status
 group by ID,name
 go
 
---7 przychody ze studiów(major, nie class) podzia³ na wpisowe i zjazdy
+--7 przychody ze studiï¿½w(major, nie class) podziaï¿½ na wpisowe i zjazdy
 create view studies_income_list_with_division as
 select c.productID as ID, m.name as name, sum(od.price) as income, 'entry fee' as type
 from class as c
@@ -106,14 +106,14 @@ where os.statusType = 'paid'
 group by  c.productID, m.name 
 go
 
---8 pe³ne zyski ze studiów
+--8 peï¿½ne zyski ze studiï¿½w
 create view studies_income_list as
 select ID, name, sum(income) as income
 from studies_income_list_with_division 
 group by ID,name
 go
 
---9 Sylabus dla ka¿dych studiów
+--9 Sylabus dla kaï¿½dych studiï¿½w
 create view class_syllabus as
 select 
 c.classID as 'ID Rocznika',
@@ -194,7 +194,7 @@ from products_for_sale
 where Type = 'convention'
 go
 
---15 rodzaje spotkañ
+--15 rodzaje spotkaï¿½
 create view meeting_type as
 select
 m.meetingID,
@@ -209,7 +209,7 @@ from meeting as m
 inner join meetingMode as mm on m.meetingModeID= mm.meetingModeID
 go
 
--- 16.1 obecnoœæ na spotkaniach
+-- 16.1 obecnoï¿½ï¿½ na spotkaniach
 create view meeting_attendance as
 select
 m.meetingID as ID,
@@ -220,7 +220,7 @@ inner join meetingTime as mt on mt.meetingID = m.meetingID
 where mt.endTime < GETDATE()
 go
 
--- 16.2 wyœwietlenia nagrañ spotkañ asynchronicznych
+-- 16.2 wyï¿½wietlenia nagraï¿½ spotkaï¿½ asynchronicznych
 create view async_meeting_attendance as
 select
 m.meetingID as ID,
@@ -257,7 +257,7 @@ inner join meeting as m on ms.meetingID = m.meetingID
 inner join meetingTime as mt on mt.meetingID=m.meetingID
 go
 
---19 lista sta³ych klientów(tych którzy kupili du¿o produktów)
+--19 lista staï¿½ych klientï¿½w(tych ktï¿½rzy kupili duï¿½o produktï¿½w)
 create view regular_customer as
 select p.participantID,COUNT(*) as products 
 from participant as p
@@ -267,7 +267,7 @@ group by p.participantID
 having Count(*) > 10
 go
 
---20 lista sta³ych klientów(tych którzy kupili du¿o produktów w ci¹gu ostatniego roku)
+--20 lista staï¿½ych klientï¿½w(tych ktï¿½rzy kupili duï¿½o produktï¿½w w ciï¿½gu ostatniego roku)
 create view recent_regular_customer as
 select p.participantID,COUNT(*) as products 
 from participant as p
@@ -278,7 +278,7 @@ group by p.participantID
 having Count(*) > 10
 go
 
---21 dla ka¿dego meetingu stacjonarnego iloœæ miejsc i iloœæ zajêtych miejsc
+--21 dla kaï¿½dego meetingu stacjonarnego iloï¿½ï¿½ miejsc i iloï¿½ï¿½ zajï¿½tych miejsc
 create view meeting_places_available as
 select mp.meetingID,r.size as 'room size',count(mp.participantID) as 'places occupied'
 from meetingParticipants as mp
@@ -288,7 +288,7 @@ inner join rooms as r on sm.roomID=r.roomID
 group by mp.meetingID,r.size
 go
 
---22 szczegó³owy raport frekwencji
+--22 szczegï¿½owy raport frekwencji
 create view attendace_details as
 select
 m.meetingID,cast(mt.startTime as date) as 'date', p.participantID,p.firstName + ' ' + p.lastName as 'name' ,mp.wasPresent
@@ -300,8 +300,9 @@ where mt.endTime < GETDATE()
 order by m.meetingID,p.participantID
 go
 
---dla ka¿dego produktu liczba osób ktore go zakupi³y
---dla ka¿dych studiów liczba zjazdów spotkañ i sta¿y
+--dla kaï¿½dego produktu liczba osï¿½b ktore go zakupiï¿½y
+--dla kaï¿½dych studiï¿½w liczba zjazdï¿½w spotkaï¿½ i staï¿½y
 --ramy czasowe studiow
---ramy czasowe zjazdów
-
+--ramy czasowe zjazdï¿½w
+--uzytkownicy i produkty w ich koszykach
+--raport bilokacji dla pokojÃ³w

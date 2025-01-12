@@ -9,16 +9,21 @@ from faker.providers import BaseProvider
 ### zmienic w bazie meetingMode - ja się tym zajmę
 # w modułach ok 680 linijki daje losowe id bo nie  wiem jak wyciągać które id
 # należą do kursów, więc  jak ktos wie to może poprawić
+# id tabel liczymy od 0, poprawić generowanie losowych id (np w kluczach obcych)
+# dodać conventions do products
+# Zostało meetingParticipants i asyncMeetingDetails
 
 ### rzeczy do zmienienia w create.sql :
 # dodanie AUTOINCREMENT do id w tabelach, które nie maja FK jako PK
 # w orderDetails, pk to orderID, productID, a nie samo orderID, jesli moze byc kilka produktow w jendym order
 # dodac tablice course participants
 # courseDetails  ma title, mimo że courseName istnieje w course?
+
 # Ammount parameters:
+
 participants_ammount = 10000
 employees_amount = 1000
-product_ammount = 1000
+product_ammount = 1000 # bez conventions
 company_ammount = 30
 meeting_amount = 4000
 onlineSyncMeeting_amount = onlineAsyncMeeting_amount = 1000
@@ -340,6 +345,8 @@ for student in students:
         "passed": fake.random_element([None, 1, 0]),
     }
     finalExam_list.append(final_exam)
+final_exam_df = pd.DataFrame(finalExam_list)
+final_exam_df.to_csv('data/finalExam.csv', index=False)
 
 # Generate course data
 relatedProduct_ids = [i for i in range(product_ammount) if product_list[i]['typeID'] == 1]
@@ -625,7 +632,7 @@ for i in range(meeting_amount):
         "instructorID" : instructor_id,
         "translatorID" : translator_id,
         "languageID" : language_id,
-        "meetingMode" : random.randint(1,4)
+        "meetingMode" : random.randint(0,3)
     }
     meeting_list.append(meeting)
 
@@ -646,7 +653,7 @@ for i in range(1,onlineAsyncMeeting_amount+1):
     onlineAsyncMeeting.append(o_a_meeting)
 
 onlineAsyncMeeting_df = pd.DataFrame(onlineAsyncMeeting)
-onlineAsyncMeeting_df.to_csv('data/onlineAsyncMeeting', index=False)
+onlineAsyncMeeting_df.to_csv('data/onlineAsyncMeeting.csv', index=False)
 
 
 # generate onlineSyncMeeting data
@@ -663,7 +670,7 @@ for i in range(1, onlineSyncMeeting_amount + 1):
     onlineSyncMeeting.append(o_s_meeting)
 
 onlineSyncMeeting_df = pd.DataFrame(onlineSyncMeeting)
-onlineSyncMeeting_df.to_csv('data/onlineSyncMeeting', index=False)
+onlineSyncMeeting_df.to_csv('data/onlineSyncMeeting.csv', index=False)
 
 
 #generate random stationaryMeetings data
@@ -725,7 +732,7 @@ roomDetails_df.to_csv('data/roomDetails.csv',index=False)
 
 internships = []
 
-for i in range(10):
+for i in range(internship_amount):
     supervisors_id = [internship_supervisors['internshipSupervisorID'].tolist() for supervisor in
                       internship_supervisors]
     supervisor_id = random.choice(supervisors_id[0])
@@ -752,9 +759,9 @@ modules = []
 
 for i in range(module_amount):
     module = {
-        "courseID": random.randint(1, 100),
+        "courseID": random.randint(0, len(course_df)-1),
         "description": fake.text(),
-        "moduleTypeID": random.randint(1, 4)
+        "moduleTypeID": random.randint(0, 3)
     }
     modules.append(module)
 
@@ -767,8 +774,112 @@ typeNames = ["online synchronous", "online asynchronous", "stationary", "hybrid"
 conventionTypes_df = pd.DataFrame(typeNames, columns=['modeName'])
 conventionTypes_df.to_csv('data/conventionTypes.csv', index=False)
 
+# generate convention
+# nie zapomnieć dodać do products
+conventions_per_study = 10
+studies_amount = len(class_df)
 
+conventions = []
 
+for i in range(studies_amount):
+    for j in range(conventions_per_study):
+        price_for_students = (fake.random_int(min=100000, max=1000000) / 100)
+        convent = {
+            "classID": i,
+            "productID": product_ammount + i * conventions_per_study + j,
+            "limit": class_df['limit'][i] + fake.random_int(min=0, max=20), ## limity takie żeby pasować do limitów studiów tj są większe
+            "price": round(price_for_students * 1.1, 2),
+            "priceForStudents": price_for_students,
+            "conventionTypeID": random.randint(0, 3),
+        }
+        conventions.append(convent)
+
+conventions_df = pd.DataFrame(conventions)
+conventions_df.to_csv('data/convention.csv', index=False)
+
+# generating conventionDetails -- dodawanie studentów jako uczestników zjazdu, można dodać jeszcze jakieś losowe osoby
+# PaymentDate chyba niepotrzebne bo jest w order i orderDetails
+
+convention_participants = []
+for i in range(len(students_df)):
+    classID = students_df['classID'][i]
+    studentID = students_df['studentID'][i]
+    for j in range (conventions_per_study):
+        convention_student = {
+            "studentID":studentID,
+            "conventionID":classID * conventions_per_study + j,
+            "paymentDate":fake.date_time_between(start_date='-7y', end_date='now')
+        }
+        convention_participants.append(convention_student)    
+convention_participants_df = pd.DataFrame(convention_participants)
+convention_participants_df.to_csv('data/conventionDetails.csv', index=False)
+
+# generate internshipDetails
+# czy internship nie powinno być związane z class ?
+# w internship jest datetime a w internshipDetails date
+
+internship_details = []
+internships_per_student = 2
+for i in range(len(students_df)):
+    studentID = students_df['studentID'][i]
+    internshipID = fake.random_int(min=0, max=internship_amount-1) # albo losujemy internshipID albo dajemy takie samo jak classID 
+    #internshipID = students_df['classID'][i]                      # ale tylko wtedy kiedy jest tyle samo wierszy w class co w internship
+    for j in range (internships_per_student):
+        internshipStartDate = datetime.strptime(internships_df['startDate'][internshipID],'%Y-%m-%d').date()
+        thisdate = fake.date_between(start_date=internshipStartDate, end_date='+14d')
+        if(thisdate < datetime.today().date()):
+            wasPresent = random.choices([0, 1], weights=[10, 90], k=1)[0]
+        else:
+            wasPresent = None
+            
+        internshipDetail = {
+            "internshipID": internshipID,
+            "studentID": studentID,
+            "date": thisdate.strftime('%Y-%m-%d'), 
+            "wasPresent": wasPresent,
+        }
+        internship_details.append(internshipDetail)    
+internship_details_df = pd.DataFrame(internship_details)
+internship_details_df.to_csv('data/internshipDetails.csv', index=False)
+
+# przydzielenie losowo meetingów do kursów i klas
+# nie jest zgodne z sylabusem
+# część zjazdów i modułów nie będzie miała żadnego spotkania
+
+moduleSchedule = []
+studySchedule = []
+i = 0
+while(i < meeting_amount):
+    meetingMode = meetings_df['meetingMode'][i] # OnSyn, OnAsyn, Stat
+    if(random.choices([True, False], k=1)[0]):
+        #studia
+        conventionID = random.randint(0, len(conventions_df)-1)
+        conventionMode = conventions_df['conventionTypeID'][conventionID] # OnSyn, OnAsyn, Stat, Hyb
+        if(conventionMode == 3 or conventionMode == meetingMode):
+            convention_meeting = {
+                "meetingID": i,
+                "conventionID": conventionID
+            }
+            studySchedule.append(convention_meeting)
+            i=i+1
+    else:
+        #kurs
+        moduleID = random.randint(0, len(modules_df)-1)
+        moduleMode = modules_df['moduleTypeID'][moduleID]
+        if(moduleMode == 3 or moduleMode == meetingMode):
+            module_meeting = {
+                "meetingID": i,
+                "moduleID": moduleID
+            }
+            moduleSchedule.append(module_meeting)
+            i=i+1
+    
+module_schedule_df = pd.DataFrame(moduleSchedule)
+module_schedule_df.to_csv('data/moduleSchedule.csv', index=False)
+study_schedule_df = pd.DataFrame(studySchedule)
+study_schedule_df.to_csv('data/studySchedule.csv', index=False)
+
+#generate meetingParticipants i asyncMeetingDetails
 
 
 
