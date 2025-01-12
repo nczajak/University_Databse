@@ -826,7 +826,7 @@ for i in range(len(students_df)):
     #internshipID = students_df['classID'][i]                      # ale tylko wtedy kiedy jest tyle samo wierszy w class co w internship
     for j in range (internships_per_student):
         internshipStartDate = datetime.strptime(internships_df['startDate'][internshipID],'%Y-%m-%d').date()
-        thisdate = fake.date_between(start_date=internshipStartDate, end_date='+14d')
+        thisdate = fake.date_between(start_date=internshipStartDate, end_date=internshipStartDate + timedelta(days=14))
         if(thisdate < datetime.today().date()):
             wasPresent = random.choices([0, 1], weights=[10, 90], k=1)[0]
         else:
@@ -879,7 +879,7 @@ module_schedule_df.to_csv('data/moduleSchedule.csv', index=False)
 study_schedule_df = pd.DataFrame(studySchedule)
 study_schedule_df.to_csv('data/studySchedule.csv', index=False)
 
-#generate meetingParticipants i asyncMeetingDetails
+#generate meetingParticipants and asyncMeetingDetails
 
 
 
