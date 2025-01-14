@@ -5,7 +5,7 @@
 -- tables
 -- Table: asyncMeetingDetails
 CREATE TABLE asyncMeetingDetails (
-    meetingID int  NOT NULL IDENTITY(0,1),
+    meetingID int  NOT NULL,
     participantID int  NOT NULL,
     dateWatched datetime  NULL,
     CONSTRAINT asyncMeetingDetails_pk PRIMARY KEY (meetingID,participantID),
@@ -213,8 +213,8 @@ CREATE TABLE language (
 -- Table: major
 CREATE TABLE major (
     majorID int  NOT NULL IDENTITY(0,1),
-    [name] nvarchar(50)  NOT NULL,
-    [description] nvarchar(50)  NOT NULL,
+    [name] nvarchar(500)  NOT NULL,
+    [description] nvarchar(100)  NOT NULL,
     supervisorID int  NOT NULL,
     CONSTRAINT major_pk PRIMARY KEY (majorID),
 	CONSTRAINT major_chk_positive_ids CHECK (majorID >= 0  AND supervisorID >= 0)

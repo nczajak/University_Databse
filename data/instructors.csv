@@ -1,82 +1,811 @@
 instructorID,titleID
-35,associate professor
-16,associate professor
-89,adjunct professor
-30,senior lecturer
-22,senior lecturer
-68,senior lecturer
-0,adjunct professor
-29,professor
-13,professor
-65,senior lecturer
-73,associate professor
-57,senior lecturer
-15,lecturer
-47,adjunct professor
-37,visiting professor
-28,lecturer
-3,assistant professor
-85,visiting professor
-76,adjunct professor
-25,adjunct professor
-10,visiting professor
-27,visiting professor
-95,associate professor
-40,associate professor
-36,senior lecturer
-78,professor
-44,lecturer
-62,professor
-50,senior lecturer
-33,associate professor
-20,visiting professor
-58,lecturer
-32,visiting professor
-98,senior lecturer
-61,associate professor
-69,associate professor
-67,adjunct professor
-79,associate professor
-91,senior lecturer
-12,associate professor
-19,senior lecturer
-70,assistant professor
+284,professor
+114,visiting professor
+179,adjunct professor
+300,professor
+122,associate professor
+311,lecturer
+876,senior lecturer
+913,visiting professor
+56,lecturer
+227,lecturer
+874,senior lecturer
+829,lecturer
+637,assistant professor
+691,assistant professor
+337,assistant professor
+712,professor
+663,lecturer
+599,lecturer
+452,adjunct professor
+400,professor
+358,visiting professor
+33,adjunct professor
+413,associate professor
+468,lecturer
+249,senior lecturer
+97,senior lecturer
+820,professor
+552,lecturer
+351,adjunct professor
+541,senior lecturer
+140,senior lecturer
+616,associate professor
+698,assistant professor
+494,professor
+963,assistant professor
+119,professor
+91,lecturer
+760,visiting professor
+491,professor
+414,senior lecturer
+125,adjunct professor
+721,lecturer
+617,assistant professor
+388,adjunct professor
+868,professor
+161,visiting professor
+769,associate professor
+754,senior lecturer
+708,adjunct professor
+624,associate professor
+696,associate professor
+656,lecturer
+190,adjunct professor
+821,senior lecturer
+956,senior lecturer
+256,visiting professor
+350,visiting professor
+993,assistant professor
+480,associate professor
+288,senior lecturer
+848,senior lecturer
+336,lecturer
+777,visiting professor
+321,professor
+197,senior lecturer
+664,assistant professor
+697,adjunct professor
+487,senior lecturer
+446,visiting professor
+241,lecturer
+128,lecturer
+490,adjunct professor
+342,adjunct professor
+812,assistant professor
+200,assistant professor
+982,senior lecturer
+167,associate professor
+612,professor
+543,professor
+799,senior lecturer
+84,professor
+732,assistant professor
+765,professor
+469,associate professor
+171,adjunct professor
+39,adjunct professor
+852,visiting professor
+73,senior lecturer
+596,senior lecturer
+433,adjunct professor
+431,adjunct professor
+48,associate professor
+100,adjunct professor
+386,visiting professor
+98,professor
+145,visiting professor
+785,professor
+988,visiting professor
+585,associate professor
+111,visiting professor
+282,adjunct professor
+250,associate professor
+271,professor
+187,associate professor
+289,lecturer
+40,assistant professor
+844,professor
+184,visiting professor
+620,assistant professor
+772,visiting professor
+404,professor
+456,lecturer
+943,associate professor
+916,lecturer
+164,professor
+528,associate professor
+588,visiting professor
+716,associate professor
+614,lecturer
+869,assistant professor
+444,assistant professor
+402,lecturer
+786,adjunct professor
+427,professor
+26,senior lecturer
+432,assistant professor
+626,adjunct professor
+780,adjunct professor
+192,senior lecturer
+715,senior lecturer
+633,visiting professor
+215,professor
+851,visiting professor
+333,adjunct professor
+70,associate professor
+314,senior lecturer
+349,associate professor
+798,adjunct professor
+286,assistant professor
+997,professor
+609,professor
+305,visiting professor
+248,visiting professor
+995,adjunct professor
+87,senior lecturer
+364,lecturer
+514,assistant professor
+291,assistant professor
+420,adjunct professor
+352,associate professor
+118,assistant professor
+819,associate professor
+436,senior lecturer
+513,lecturer
+908,adjunct professor
+132,visiting professor
+531,assistant professor
+137,assistant professor
+998,senior lecturer
+247,adjunct professor
+79,adjunct professor
+823,lecturer
+41,senior lecturer
+71,associate professor
+806,assistant professor
+315,visiting professor
+795,senior lecturer
+919,professor
+648,assistant professor
+293,visiting professor
+854,visiting professor
+622,associate professor
+471,adjunct professor
+569,senior lecturer
+340,visiting professor
+501,visiting professor
+705,lecturer
+862,visiting professor
 38,visiting professor
-17,adjunct professor
-45,visiting professor
-52,lecturer
-8,visiting professor
-60,associate professor
-86,visiting professor
-83,adjunct professor
-41,professor
-23,senior lecturer
-72,visiting professor
-64,professor
-53,senior lecturer
-82,visiting professor
-74,lecturer
-6,senior lecturer
-21,lecturer
-55,associate professor
-39,professor
-7,assistant professor
-26,adjunct professor
-81,adjunct professor
-94,assistant professor
-97,assistant professor
-88,senior lecturer
-46,senior lecturer
-71,lecturer
-9,senior lecturer
-99,assistant professor
-5,adjunct professor
-87,lecturer
-11,adjunct professor
-31,adjunct professor
-54,professor
-34,visiting professor
+628,adjunct professor
+999,assistant professor
+566,senior lecturer
+930,lecturer
+172,lecturer
+21,assistant professor
+75,associate professor
+384,senior lecturer
+774,adjunct professor
+642,lecturer
+607,lecturer
+892,assistant professor
+387,senior lecturer
+850,adjunct professor
+815,visiting professor
+204,lecturer
+222,lecturer
+123,lecturer
+242,adjunct professor
+921,professor
+587,adjunct professor
+910,associate professor
+901,senior lecturer
+270,visiting professor
+836,senior lecturer
+879,professor
+523,assistant professor
+399,adjunct professor
+840,associate professor
+459,associate professor
+707,visiting professor
+165,lecturer
+878,senior lecturer
+734,lecturer
+135,professor
+213,lecturer
+684,lecturer
+709,associate professor
+728,assistant professor
+665,senior lecturer
+450,associate professor
+737,visiting professor
+7,visiting professor
+695,assistant professor
+205,lecturer
+751,professor
+240,senior lecturer
+261,visiting professor
+804,lecturer
+923,associate professor
+206,adjunct professor
+978,assistant professor
+29,associate professor
+601,senior lecturer
+486,visiting professor
+362,assistant professor
+343,senior lecturer
+720,assistant professor
+863,adjunct professor
+761,visiting professor
+560,senior lecturer
+932,associate professor
+778,visiting professor
+60,lecturer
+296,visiting professor
+363,associate professor
+323,lecturer
+47,professor
+539,assistant professor
+674,visiting professor
+103,adjunct professor
+606,associate professor
+831,senior lecturer
+428,associate professor
+347,associate professor
+885,associate professor
+269,lecturer
+704,assistant professor
+482,professor
+984,senior lecturer
+685,adjunct professor
+398,associate professor
+912,associate professor
+457,professor
+209,professor
+555,senior lecturer
+474,assistant professor
+615,lecturer
+290,lecturer
+395,visiting professor
+259,assistant professor
+962,adjunct professor
+403,assistant professor
+58,senior lecturer
+508,assistant professor
+440,assistant professor
+925,senior lecturer
+237,associate professor
+957,lecturer
+151,adjunct professor
+849,adjunct professor
+142,associate professor
+590,assistant professor
+108,senior lecturer
+933,visiting professor
+575,senior lecturer
+434,adjunct professor
+10,associate professor
+738,senior lecturer
+781,lecturer
+180,senior lecturer
+586,assistant professor
+571,visiting professor
+183,visiting professor
+295,assistant professor
+312,visiting professor
+46,professor
+55,professor
+502,professor
+181,assistant professor
+373,visiting professor
+426,lecturer
+339,visiting professor
+746,assistant professor
+106,associate professor
+666,associate professor
+965,lecturer
+195,lecturer
+102,professor
+655,professor
+212,lecturer
+279,associate professor
+157,visiting professor
+201,associate professor
+310,professor
+391,visiting professor
+94,lecturer
+753,professor
+556,associate professor
+938,associate professor
+909,professor
+419,assistant professor
+448,adjunct professor
+591,assistant professor
+550,assistant professor
+354,adjunct professor
+203,senior lecturer
+429,associate professor
+602,senior lecturer
+235,adjunct professor
+946,associate professor
+129,adjunct professor
+346,senior lecturer
+736,associate professor
+651,senior lecturer
+202,visiting professor
+673,adjunct professor
+69,lecturer
+417,professor
+162,associate professor
+857,lecturer
+31,lecturer
+155,adjunct professor
+3,senior lecturer
+23,assistant professor
+95,visiting professor
+59,lecturer
+887,visiting professor
+856,assistant professor
+280,adjunct professor
+245,lecturer
+516,assistant professor
+424,associate professor
+11,lecturer
+394,visiting professor
+182,visiting professor
+687,assistant professor
+625,adjunct professor
+461,visiting professor
+893,assistant professor
+16,associate professor
+827,professor
+675,professor
+608,lecturer
+168,assistant professor
+51,adjunct professor
+883,assistant professor
+368,assistant professor
+275,adjunct professor
+93,adjunct professor
+584,associate professor
+789,professor
+447,associate professor
+843,associate professor
+743,visiting professor
+57,lecturer
+903,senior lecturer
+217,associate professor
+870,senior lecturer
+18,lecturer
+770,assistant professor
+578,visiting professor
+42,lecturer
+654,lecturer
+593,visiting professor
+515,lecturer
+393,assistant professor
+28,assistant professor
+846,lecturer
+53,lecturer
+939,professor
+717,assistant professor
+252,professor
+463,senior lecturer
+224,associate professor
+512,senior lecturer
+105,lecturer
+899,associate professor
+267,adjunct professor
+483,adjunct professor
+36,assistant professor
+377,lecturer
+297,adjunct professor
+592,professor
+116,senior lecturer
+860,professor
+983,assistant professor
+113,professor
+572,senior lecturer
+580,lecturer
+660,lecturer
+504,lecturer
+629,associate professor
+505,professor
+174,adjunct professor
+842,associate professor
+545,senior lecturer
+972,associate professor
+553,assistant professor
+238,visiting professor
+686,visiting professor
+524,assistant professor
+832,professor
+534,lecturer
+332,adjunct professor
+509,lecturer
 49,lecturer
-43,assistant professor
-18,senior lecturer
-1,assistant professor
+159,visiting professor
+80,assistant professor
+989,lecturer
+20,lecturer
+263,professor
+758,associate professor
+975,associate professor
+299,associate professor
+681,adjunct professor
+143,associate professor
+627,professor
+188,visiting professor
+24,visiting professor
+729,lecturer
+475,visiting professor
+193,senior lecturer
+253,senior lecturer
+441,senior lecturer
+653,senior lecturer
+632,senior lecturer
+66,senior lecturer
+701,professor
+838,assistant professor
+366,assistant professor
+330,senior lecturer
+816,associate professor
+81,assistant professor
+360,senior lecturer
+891,associate professor
+942,visiting professor
+833,visiting professor
+401,associate professor
+764,visiting professor
+643,assistant professor
+148,lecturer
+408,lecturer
+683,professor
+631,lecturer
+146,visiting professor
+678,lecturer
+865,professor
+194,lecturer
+518,associate professor
+949,professor
+563,professor
+112,professor
+971,associate professor
+260,lecturer
+986,adjunct professor
+702,lecturer
+767,associate professor
+669,senior lecturer
+254,visiting professor
+937,professor
+309,adjunct professor
+52,senior lecturer
+409,visiting professor
+124,visiting professor
+964,adjunct professor
+579,professor
+826,visiting professor
+771,adjunct professor
+839,senior lecturer
+173,adjunct professor
+914,lecturer
+861,lecturer
+272,assistant professor
+277,senior lecturer
+750,adjunct professor
+559,lecturer
+88,professor
+779,assistant professor
+646,associate professor
+356,associate professor
+837,visiting professor
+873,professor
+243,associate professor
+30,senior lecturer
+405,assistant professor
+121,associate professor
+783,adjunct professor
+246,assistant professor
+133,lecturer
+884,assistant professor
+652,lecturer
+185,lecturer
+719,senior lecturer
+677,senior lecturer
+951,assistant professor
+740,visiting professor
+455,assistant professor
+257,lecturer
+258,professor
+27,senior lecturer
+689,senior lecturer
+801,senior lecturer
+763,adjunct professor
+688,adjunct professor
+5,professor
+466,associate professor
+667,adjunct professor
+690,visiting professor
+520,senior lecturer
+82,professor
+529,lecturer
+233,adjunct professor
+811,assistant professor
+357,assistant professor
+496,senior lecturer
+894,professor
+281,visiting professor
+977,associate professor
+369,assistant professor
+72,senior lecturer
+43,adjunct professor
+661,assistant professor
+50,assistant professor
+232,associate professor
+445,visiting professor
+540,senior lecturer
+890,adjunct professor
+0,visiting professor
+507,assistant professor
+207,lecturer
+603,adjunct professor
+422,adjunct professor
+12,senior lecturer
+730,adjunct professor
+981,associate professor
+216,lecturer
+32,professor
+935,lecturer
+847,associate professor
+77,associate professor
+320,professor
+855,assistant professor
+392,senior lecturer
+557,associate professor
+218,lecturer
+467,lecturer
+34,associate professor
+22,visiting professor
+276,lecturer
+547,visiting professor
+375,senior lecturer
+723,adjunct professor
+800,professor
+613,assistant professor
+83,professor
+787,associate professor
+198,visiting professor
+44,visiting professor
+76,associate professor
+78,lecturer
+958,senior lecturer
+739,adjunct professor
+484,visiting professor
+694,adjunct professor
+251,visiting professor
+917,senior lecturer
+979,professor
+877,associate professor
+634,assistant professor
+35,assistant professor
+595,associate professor
+544,professor
+644,lecturer
+535,assistant professor
+130,assistant professor
+934,lecturer
+950,senior lecturer
+327,lecturer
+790,professor
+437,senior lecturer
+517,senior lecturer
+338,lecturer
+928,assistant professor
+67,professor
+562,assistant professor
+845,associate professor
+922,visiting professor
+45,adjunct professor
+265,assistant professor
+577,visiting professor
+522,professor
+68,associate professor
+304,assistant professor
+476,professor
+985,associate professor
+156,adjunct professor
+807,assistant professor
+86,professor
+149,professor
+99,professor
+747,visiting professor
+223,assistant professor
+952,visiting professor
+980,senior lecturer
+573,associate professor
+955,professor
+219,visiting professor
+8,professor
+453,visiting professor
+886,visiting professor
+742,visiting professor
+438,lecturer
+211,adjunct professor
+526,professor
+160,associate professor
+144,lecturer
+328,visiting professor
+581,associate professor
+725,associate professor
+641,lecturer
+367,visiting professor
+138,professor
+353,senior lecturer
+220,assistant professor
+120,adjunct professor
+825,assistant professor
+896,adjunct professor
+710,lecturer
+390,lecturer
+131,associate professor
+464,lecturer
+435,professor
+214,visiting professor
+538,associate professor
+6,professor
+623,adjunct professor
+792,assistant professor
+650,assistant professor
+365,visiting professor
+929,adjunct professor
+458,assistant professor
+117,professor
+389,assistant professor
+813,assistant professor
+355,professor
+134,senior lecturer
+974,professor
+316,adjunct professor
+344,senior lecturer
+744,lecturer
+693,visiting professor
+397,associate professor
+649,associate professor
+583,lecturer
+830,lecturer
+126,professor
+954,assistant professor
+109,senior lecturer
+927,associate professor
+136,lecturer
+177,professor
+994,senior lecturer
+376,visiting professor
+700,professor
+465,professor
+600,assistant professor
+773,assistant professor
+13,visiting professor
+273,assistant professor
+292,senior lecturer
+407,visiting professor
+920,lecturer
+74,senior lecturer
+990,lecturer
+478,lecturer
+724,associate professor
+537,adjunct professor
+37,associate professor
+953,assistant professor
+412,lecturer
+239,professor
+969,professor
+2,senior lecturer
+619,adjunct professor
+968,senior lecturer
+576,visiting professor
+808,lecturer
+794,adjunct professor
+658,lecturer
+153,senior lecturer
+718,lecturer
+234,visiting professor
+902,associate professor
+380,associate professor
+166,assistant professor
+817,senior lecturer
+477,associate professor
+970,adjunct professor
+378,associate professor
+731,adjunct professor
+551,professor
+107,associate professor
+169,adjunct professor
+735,lecturer
+776,associate professor
+931,visiting professor
+640,professor
+495,professor
+752,professor
+4,lecturer
+101,assistant professor
+565,associate professor
+907,associate professor
+797,senior lecturer
+532,adjunct professor
+605,professor
+489,assistant professor
+210,senior lecturer
+536,professor
+947,professor
+96,adjunct professor
+175,visiting professor
+510,adjunct professor
+317,assistant professor
+945,associate professor
+268,assistant professor
+283,assistant professor
+567,associate professor
+835,associate professor
+904,associate professor
+472,adjunct professor
+948,professor
+882,visiting professor
+410,senior lecturer
+926,visiting professor
+262,senior lecturer
+322,adjunct professor
+176,associate professor
+784,visiting professor
+382,lecturer
+325,adjunct professor
+853,professor
+574,adjunct professor
+225,lecturer
+824,senior lecturer
+506,adjunct professor
+676,senior lecturer
+889,associate professor
+139,lecturer
+294,professor
+451,lecturer
+748,associate professor
+814,professor
+150,adjunct professor
+470,professor
+906,associate professor
+196,assistant professor
+757,adjunct professor
+302,senior lecturer
+19,associate professor
+411,visiting professor
+331,adjunct professor
+244,visiting professor
+329,visiting professor
+888,associate professor
+828,assistant professor
+115,lecturer
+493,professor
+341,adjunct professor
+672,associate professor
+497,visiting professor
+659,professor
+492,adjunct professor
+741,adjunct professor
+521,senior lecturer
+15,senior lecturer
+630,professor
+570,senior lecturer
+334,associate professor
+90,associate professor
+618,senior lecturer
+61,senior lecturer
+199,assistant professor
+278,associate professor
+960,assistant professor
+936,adjunct professor
+897,visiting professor
+805,adjunct professor
+791,senior lecturer
+635,visiting professor

@@ -1,0 +1,503 @@
+productID,webinarName,price
+5,"Webinar on Political Science, edition: III",32.21
+6,"Webinar on Physical Therapy, edition: I",69.03
+8,"Webinar on Accounting, edition: IV",63.39
+10,"Webinar on Physical Therapy, edition: IV",11.05
+11,"Webinar on Law, edition: I",36.74
+13,"Webinar on Urban Planning, edition: IV",66.66
+14,"Webinar on Social Work, edition: IV",93.85
+15,"Webinar on Environmental Science, edition: III",18.76
+16,"Webinar on Entrepreneurship, edition: III",64.94
+17,"Webinar on Philosophy, edition: III",92.3
+18,"Webinar on Information Technology, edition: III",82.55
+21,"Webinar on Pharmacy, edition: III",31.66
+22,"Webinar on Urban Planning, edition: I",35.26
+23,"Webinar on Economics, edition: I",55.72
+24,"Webinar on Supply Chain Management, edition: III",40.64
+25,"Webinar on Information Technology, edition: IV",42.5
+26,"Webinar on Computer Science, edition: III",93.74
+29,"Webinar on Literature, edition: III",68.39
+31,"Webinar on Political Science, edition: I",80.04
+32,"Webinar on Business Administration, edition: II",97.67
+34,"Webinar on Physics, edition: IV",54.55
+35,"Webinar on Public Relations, edition: IV",71.37
+37,"Webinar on Media Studies, edition: IV",62.34
+38,"Webinar on Environmental Science, edition: III",84.57
+41,"Webinar on Chemistry, edition: IV",18.63
+45,"Webinar on Occupational Therapy, edition: III",84.52
+47,"Webinar on Urban Planning, edition: III",62.81
+48,"Webinar on Literature, edition: III",62.65
+51,"Webinar on Finance, edition: IV",16.52
+53,"Webinar on Dentistry, edition: II",34.24
+54,"Webinar on Architecture, edition: III",44.5
+55,"Webinar on Psychology, edition: IV",24.89
+59,"Webinar on Math, edition: II",96.06
+61,"Webinar on Management, edition: II",47.39
+62,"Webinar on Finance, edition: IV",70.93
+66,"Webinar on Chemistry, edition: III",74.26
+68,"Webinar on Chemistry, edition: III",56.94
+73,"Webinar on Philosophy, edition: I",14.6
+74,"Webinar on Math, edition: I",20.61
+75,"Webinar on Urban Planning, edition: I",24.99
+76,"Webinar on Social Work, edition: I",44.12
+77,"Webinar on Political Science, edition: III",16.76
+79,"Webinar on Business Administration, edition: II",77.64
+84,"Webinar on Communication, edition: I",24.19
+85,"Webinar on Political Science, edition: IV",64.95
+87,"Webinar on Human Resources, edition: II",30.23
+90,"Webinar on Environmental Science, edition: I",46.08
+91,"Webinar on Chemistry, edition: I",79.04
+92,"Webinar on Information Technology, edition: I",83.79
+93,"Webinar on Pharmacy, edition: IV",43.32
+94,"Webinar on Medicine, edition: III",30.47
+95,"Webinar on Environmental Science, edition: I",12.94
+96,"Webinar on Pharmacy, edition: III",52.28
+101,"Webinar on Human Resources, edition: II",25.14
+102,"Webinar on Physics, edition: I",42.07
+103,"Webinar on Anthropology, edition: II",30.76
+107,"Webinar on Biology, edition: I",51.53
+108,"Webinar on Healthcare Management, edition: I",40.74
+109,"Webinar on Architecture, edition: I",40.17
+110,"Webinar on Physics, edition: II",87.69
+111,"Webinar on Dentistry, edition: III",28.97
+112,"Webinar on Social Work, edition: IV",50.27
+113,"Webinar on Criminal Justice, edition: II",81.43
+114,"Webinar on Biology, edition: II",19.37
+117,"Webinar on Public Relations, edition: II",72.08
+118,"Webinar on International Business, edition: II",61.11
+122,"Webinar on Education, edition: I",70.91
+125,"Webinar on Political Science, edition: IV",18.1
+127,"Webinar on Media Studies, edition: III",38.7
+129,"Webinar on Physics, edition: III",61.84
+130,"Webinar on Media Studies, edition: I",98.95
+131,"Webinar on Math, edition: III",13.67
+132,"Webinar on History, edition: I",53.47
+134,"Webinar on Finance, edition: IV",75.44
+135,"Webinar on Urban Planning, edition: IV",97.43
+138,"Webinar on Pharmacy, edition: I",44.8
+139,"Webinar on Entrepreneurship, edition: II",60.49
+142,"Webinar on Finance, edition: I",81.63
+143,"Webinar on Finance, edition: IV",97.85
+145,"Webinar on Education, edition: IV",94.59
+146,"Webinar on Management, edition: IV",44.8
+151,"Webinar on Journalism, edition: III",69.68
+152,"Webinar on Physics, edition: I",18.87
+154,"Webinar on Public Administration, edition: II",85.56
+155,"Webinar on Business Administration, edition: IV",27.48
+156,"Webinar on Business Administration, edition: III",85.82
+157,"Webinar on Environmental Science, edition: I",18.73
+159,"Webinar on Criminal Justice, edition: IV",95.28
+162,"Webinar on Psychology, edition: III",71.11
+164,"Webinar on Healthcare Management, edition: I",58.72
+166,"Webinar on Accounting, edition: IV",11.59
+167,"Webinar on Chemistry, edition: II",20.61
+168,"Webinar on Psychology, edition: II",44.76
+170,"Webinar on Architecture, edition: II",23.51
+171,"Webinar on Urban Planning, edition: I",40.27
+172,"Webinar on Pharmacy, edition: II",96.41
+175,"Webinar on Political Science, edition: II",94.63
+176,"Webinar on Management, edition: II",42.46
+177,"Webinar on Nursing, edition: I",88.16
+178,"Webinar on Information Technology, edition: I",20.9
+181,"Webinar on Management, edition: II",98.8
+182,"Webinar on Nursing, edition: IV",30.76
+184,"Webinar on Criminal Justice, edition: II",87.95
+185,"Webinar on Pharmacy, edition: III",23.15
+190,"Webinar on Marketing, edition: IV",24.65
+200,"Webinar on Physics, edition: I",32.22
+201,"Webinar on Occupational Therapy, edition: III",62.42
+202,"Webinar on Management, edition: II",42.44
+204,"Webinar on Medicine, edition: II",71.79
+205,"Webinar on Psychology, edition: I",20.44
+206,"Webinar on Medicine, edition: I",71.12
+207,"Webinar on Business Administration, edition: I",26.28
+209,"Webinar on Journalism, edition: III",77.88
+212,"Webinar on Math, edition: III",50.61
+214,"Webinar on Engineering, edition: III",65.84
+215,"Webinar on Media Studies, edition: IV",59.75
+216,"Webinar on Geography, edition: III",98.83
+219,"Webinar on Education, edition: II",51.13
+220,"Webinar on Healthcare Management, edition: II",86.45
+223,"Webinar on Education, edition: III",79.74
+224,"Webinar on Political Science, edition: IV",48.61
+225,"Webinar on Environmental Science, edition: III",85.27
+228,"Webinar on Journalism, edition: III",63.82
+230,"Webinar on Chemistry, edition: III",78.3
+234,"Webinar on Social Work, edition: II",75.56
+235,"Webinar on Geography, edition: III",23.06
+236,"Webinar on Medicine, edition: IV",83.1
+238,"Webinar on Social Work, edition: IV",87.07
+242,"Webinar on Psychology, edition: I",75.95
+243,"Webinar on Urban Planning, edition: I",66.83
+245,"Webinar on Public Administration, edition: IV",80.22
+254,"Webinar on Dentistry, edition: IV",17.09
+256,"Webinar on Chemistry, edition: II",41.64
+258,"Webinar on Law, edition: I",91.86
+259,"Webinar on Biology, edition: IV",74.32
+260,"Webinar on Marketing, edition: II",97.12
+261,"Webinar on Management, edition: IV",21.33
+264,"Webinar on History, edition: I",54.57
+265,"Webinar on Information Technology, edition: I",43.7
+266,"Webinar on Economics, edition: I",39.99
+267,"Webinar on Math, edition: IV",52.01
+268,"Webinar on Sociology, edition: IV",47.63
+269,"Webinar on Education, edition: III",77.38
+270,"Webinar on Human Resources, edition: IV",87.22
+271,"Webinar on Entrepreneurship, edition: II",25.7
+277,"Webinar on Physical Therapy, edition: I",24.41
+279,"Webinar on Architecture, edition: IV",47.38
+280,"Webinar on Biology, edition: IV",41.83
+281,"Webinar on History, edition: II",26.01
+286,"Webinar on Medicine, edition: II",56.14
+287,"Webinar on Entrepreneurship, edition: IV",96.09
+289,"Webinar on Psychology, edition: II",64.25
+293,"Webinar on International Business, edition: II",80.38
+296,"Webinar on Environmental Science, edition: I",43.2
+298,"Webinar on Nursing, edition: II",93.17
+299,"Webinar on Public Relations, edition: II",13.11
+301,"Webinar on Environmental Science, edition: III",53.4
+302,"Webinar on Journalism, edition: I",36.49
+303,"Webinar on Environmental Science, edition: IV",19.91
+304,"Webinar on Criminal Justice, edition: III",96.67
+307,"Webinar on Medicine, edition: III",29.01
+308,"Webinar on Geography, edition: I",42.72
+309,"Webinar on History, edition: III",34.37
+310,"Webinar on Anthropology, edition: IV",84.0
+311,"Webinar on Education, edition: I",27.2
+313,"Webinar on Journalism, edition: IV",99.65
+314,"Webinar on Public Administration, edition: I",40.04
+316,"Webinar on Chemistry, edition: II",74.68
+318,"Webinar on Marketing, edition: I",18.12
+322,"Webinar on Marketing, edition: II",53.32
+325,"Webinar on Economics, edition: I",86.94
+327,"Webinar on Entrepreneurship, edition: IV",86.24
+328,"Webinar on Business Administration, edition: IV",52.45
+330,"Webinar on Architecture, edition: III",39.76
+331,"Webinar on Political Science, edition: II",86.59
+333,"Webinar on Physical Therapy, edition: IV",27.2
+338,"Webinar on Math, edition: II",19.28
+339,"Webinar on Anthropology, edition: IV",70.98
+340,"Webinar on Economics, edition: IV",78.77
+347,"Webinar on Education, edition: I",74.37
+348,"Webinar on Literature, edition: I",86.85
+351,"Webinar on Literature, edition: IV",11.42
+354,"Webinar on Operations Management, edition: II",97.71
+355,"Webinar on Supply Chain Management, edition: III",15.65
+356,"Webinar on Geography, edition: I",99.48
+358,"Webinar on Sociology, edition: I",41.7
+360,"Webinar on Pharmacy, edition: I",94.91
+361,"Webinar on Education, edition: II",40.14
+362,"Webinar on Media Studies, edition: III",35.0
+363,"Webinar on Communication, edition: I",52.4
+364,"Webinar on Education, edition: IV",65.39
+365,"Webinar on Philosophy, edition: III",17.64
+369,"Webinar on Business Administration, edition: IV",37.79
+370,"Webinar on Accounting, edition: III",24.72
+371,"Webinar on Business Administration, edition: III",86.26
+373,"Webinar on Pharmacy, edition: IV",75.02
+376,"Webinar on Sociology, edition: IV",65.71
+379,"Webinar on Political Science, edition: II",57.07
+382,"Webinar on Marketing, edition: IV",79.96
+384,"Webinar on Education, edition: II",98.25
+385,"Webinar on Sociology, edition: I",77.34
+386,"Webinar on Criminal Justice, edition: I",25.25
+389,"Webinar on International Business, edition: III",63.13
+390,"Webinar on History, edition: III",88.26
+391,"Webinar on International Business, edition: I",70.69
+392,"Webinar on Information Technology, edition: III",24.12
+394,"Webinar on Math, edition: II",18.06
+395,"Webinar on Philosophy, edition: III",80.2
+396,"Webinar on Math, edition: III",43.33
+397,"Webinar on Accounting, edition: IV",34.92
+398,"Webinar on Public Relations, edition: I",77.29
+399,"Webinar on Criminal Justice, edition: I",27.39
+400,"Webinar on Physical Therapy, edition: II",23.62
+401,"Webinar on Urban Planning, edition: IV",23.84
+405,"Webinar on Economics, edition: III",37.93
+410,"Webinar on Operations Management, edition: II",56.24
+411,"Webinar on Urban Planning, edition: III",68.3
+413,"Webinar on International Business, edition: IV",46.42
+416,"Webinar on Anthropology, edition: I",22.13
+419,"Webinar on Biology, edition: II",18.16
+420,"Webinar on Social Work, edition: III",51.86
+421,"Webinar on International Business, edition: IV",88.67
+422,"Webinar on Nursing, edition: II",42.66
+428,"Webinar on International Business, edition: IV",30.23
+430,"Webinar on Journalism, edition: I",74.39
+434,"Webinar on Communication, edition: I",57.13
+437,"Webinar on Environmental Science, edition: III",17.7
+438,"Webinar on Supply Chain Management, edition: III",47.9
+441,"Webinar on Environmental Science, edition: III",78.78
+445,"Webinar on Public Administration, edition: III",24.01
+448,"Webinar on Math, edition: II",41.74
+449,"Webinar on Computer Science, edition: II",94.75
+452,"Webinar on Physical Therapy, edition: IV",63.17
+457,"Webinar on Management, edition: II",97.15
+459,"Webinar on Biology, edition: IV",96.95
+461,"Webinar on Human Resources, edition: III",93.2
+462,"Webinar on Criminal Justice, edition: I",80.44
+465,"Webinar on Management, edition: II",44.91
+466,"Webinar on Public Relations, edition: IV",36.96
+469,"Webinar on Architecture, edition: III",51.8
+470,"Webinar on Math, edition: I",16.34
+472,"Webinar on Journalism, edition: II",51.41
+478,"Webinar on Occupational Therapy, edition: II",21.56
+481,"Webinar on Public Administration, edition: IV",39.42
+482,"Webinar on Dentistry, edition: II",84.65
+483,"Webinar on Physics, edition: II",56.46
+484,"Webinar on Journalism, edition: IV",50.52
+486,"Webinar on Public Relations, edition: III",98.87
+487,"Webinar on Math, edition: II",70.77
+488,"Webinar on Public Administration, edition: IV",27.18
+491,"Webinar on Computer Science, edition: III",13.27
+492,"Webinar on Philosophy, edition: II",62.7
+495,"Webinar on Philosophy, edition: IV",68.37
+496,"Webinar on Anthropology, edition: I",27.09
+499,"Webinar on Criminal Justice, edition: III",38.15
+503,"Webinar on Math, edition: IV",15.91
+512,"Webinar on Architecture, edition: IV",59.87
+513,"Webinar on Management, edition: IV",62.14
+514,"Webinar on Business Administration, edition: I",87.49
+520,"Webinar on Occupational Therapy, edition: II",49.59
+521,"Webinar on Finance, edition: III",25.68
+522,"Webinar on Physical Therapy, edition: IV",84.24
+523,"Webinar on Urban Planning, edition: IV",20.99
+525,"Webinar on Literature, edition: IV",87.26
+526,"Webinar on Physics, edition: I",24.51
+527,"Webinar on Business Administration, edition: II",81.05
+528,"Webinar on Medicine, edition: II",34.66
+533,"Webinar on Finance, edition: III",77.19
+534,"Webinar on Political Science, edition: II",64.29
+537,"Webinar on Finance, edition: IV",45.87
+539,"Webinar on Occupational Therapy, edition: III",49.01
+541,"Webinar on Urban Planning, edition: III",94.36
+542,"Webinar on Marketing, edition: II",13.45
+546,"Webinar on History, edition: I",42.21
+548,"Webinar on Pharmacy, edition: I",73.03
+549,"Webinar on Sociology, edition: II",96.49
+550,"Webinar on Nursing, edition: II",98.68
+552,"Webinar on Supply Chain Management, edition: III",54.26
+554,"Webinar on Healthcare Management, edition: III",75.78
+555,"Webinar on Biology, edition: III",78.85
+559,"Webinar on Chemistry, edition: III",24.3
+564,"Webinar on Finance, edition: II",58.3
+566,"Webinar on Urban Planning, edition: II",22.54
+568,"Webinar on Public Relations, edition: III",98.41
+569,"Webinar on Criminal Justice, edition: III",40.88
+572,"Webinar on History, edition: IV",59.76
+573,"Webinar on Dentistry, edition: II",82.28
+575,"Webinar on Business Administration, edition: III",32.03
+576,"Webinar on Education, edition: I",20.31
+581,"Webinar on Business Administration, edition: III",87.17
+582,"Webinar on Pharmacy, edition: II",49.23
+584,"Webinar on Management, edition: II",66.71
+585,"Webinar on Math, edition: I",86.67
+586,"Webinar on Anthropology, edition: III",81.4
+587,"Webinar on Philosophy, edition: II",96.96
+589,"Webinar on Philosophy, edition: I",28.79
+590,"Webinar on Sociology, edition: III",74.37
+591,"Webinar on Finance, edition: III",11.05
+593,"Webinar on Marketing, edition: I",35.9
+594,"Webinar on Criminal Justice, edition: I",28.4
+598,"Webinar on Anthropology, edition: III",38.9
+599,"Webinar on Political Science, edition: I",78.47
+601,"Webinar on Communication, edition: III",99.6
+602,"Webinar on Medicine, edition: IV",38.35
+605,"Webinar on Engineering, edition: I",76.51
+608,"Webinar on Political Science, edition: III",33.37
+618,"Webinar on Engineering, edition: IV",67.07
+622,"Webinar on International Business, edition: III",83.69
+623,"Webinar on Marketing, edition: IV",60.62
+625,"Webinar on Healthcare Management, edition: I",86.41
+626,"Webinar on Social Work, edition: II",74.56
+629,"Webinar on Media Studies, edition: II",70.73
+632,"Webinar on Information Technology, edition: I",31.83
+635,"Webinar on Philosophy, edition: IV",77.39
+637,"Webinar on Law, edition: II",84.07
+638,"Webinar on Education, edition: III",54.51
+640,"Webinar on Public Relations, edition: III",71.42
+641,"Webinar on Human Resources, edition: III",23.03
+644,"Webinar on Economics, edition: III",45.37
+646,"Webinar on Business Administration, edition: I",69.6
+647,"Webinar on Entrepreneurship, edition: I",24.43
+649,"Webinar on Education, edition: III",46.08
+651,"Webinar on Medicine, edition: II",30.22
+652,"Webinar on Journalism, edition: III",53.77
+656,"Webinar on Management, edition: I",25.57
+659,"Webinar on Anthropology, edition: III",47.11
+660,"Webinar on Literature, edition: I",15.51
+662,"Webinar on Human Resources, edition: II",74.78
+663,"Webinar on Finance, edition: II",13.1
+665,"Webinar on Computer Science, edition: II",46.1
+667,"Webinar on Chemistry, edition: III",78.5
+673,"Webinar on Finance, edition: I",13.33
+680,"Webinar on Education, edition: III",15.69
+686,"Webinar on Media Studies, edition: II",21.28
+687,"Webinar on Business Administration, edition: III",75.22
+689,"Webinar on Economics, edition: III",96.06
+690,"Webinar on Healthcare Management, edition: I",88.97
+691,"Webinar on Information Technology, edition: IV",62.09
+692,"Webinar on Economics, edition: II",25.2
+694,"Webinar on Dentistry, edition: IV",76.3
+695,"Webinar on Physical Therapy, edition: II",50.83
+696,"Webinar on Engineering, edition: IV",48.63
+702,"Webinar on Occupational Therapy, edition: III",71.78
+704,"Webinar on Math, edition: IV",29.53
+707,"Webinar on Marketing, edition: I",61.58
+708,"Webinar on Management, edition: II",19.62
+709,"Webinar on Economics, edition: III",52.64
+712,"Webinar on Political Science, edition: IV",12.72
+714,"Webinar on Journalism, edition: II",45.28
+717,"Webinar on Sociology, edition: I",47.33
+718,"Webinar on Chemistry, edition: I",55.56
+720,"Webinar on Law, edition: III",72.64
+721,"Webinar on Healthcare Management, edition: III",93.65
+724,"Webinar on Public Administration, edition: IV",30.18
+725,"Webinar on Political Science, edition: IV",45.75
+726,"Webinar on Education, edition: IV",67.92
+729,"Webinar on Media Studies, edition: III",99.03
+730,"Webinar on Biology, edition: II",90.32
+731,"Webinar on Pharmacy, edition: III",63.7
+733,"Webinar on Environmental Science, edition: III",61.0
+734,"Webinar on Healthcare Management, edition: III",54.53
+735,"Webinar on Communication, edition: II",17.73
+738,"Webinar on Sociology, edition: III",69.06
+739,"Webinar on Nursing, edition: III",53.76
+741,"Webinar on Biology, edition: I",61.61
+742,"Webinar on Psychology, edition: II",84.56
+744,"Webinar on Chemistry, edition: III",84.72
+750,"Webinar on International Business, edition: II",32.11
+751,"Webinar on Media Studies, edition: I",75.58
+753,"Webinar on Supply Chain Management, edition: III",79.01
+755,"Webinar on Media Studies, edition: III",87.34
+759,"Webinar on Human Resources, edition: II",34.14
+760,"Webinar on Engineering, edition: IV",64.25
+762,"Webinar on Anthropology, edition: IV",35.38
+764,"Webinar on Information Technology, edition: I",91.26
+765,"Webinar on Supply Chain Management, edition: I",92.78
+766,"Webinar on Architecture, edition: IV",74.43
+767,"Webinar on Law, edition: III",73.17
+768,"Webinar on Nursing, edition: I",52.5
+769,"Webinar on Engineering, edition: II",86.11
+770,"Webinar on Urban Planning, edition: III",52.8
+771,"Webinar on Entrepreneurship, edition: III",58.97
+773,"Webinar on Accounting, edition: II",28.52
+776,"Webinar on Business Administration, edition: IV",76.64
+777,"Webinar on Journalism, edition: IV",28.62
+778,"Webinar on Philosophy, edition: II",20.89
+780,"Webinar on Media Studies, edition: III",17.83
+781,"Webinar on Healthcare Management, edition: IV",98.58
+784,"Webinar on Chemistry, edition: I",67.26
+786,"Webinar on Supply Chain Management, edition: I",36.36
+788,"Webinar on Chemistry, edition: IV",97.89
+792,"Webinar on Finance, edition: IV",57.41
+793,"Webinar on History, edition: II",53.79
+794,"Webinar on Physics, edition: II",38.8
+795,"Webinar on Finance, edition: III",60.8
+796,"Webinar on Sociology, edition: I",61.58
+797,"Webinar on Computer Science, edition: I",18.66
+799,"Webinar on Entrepreneurship, edition: I",49.79
+801,"Webinar on Geography, edition: III",29.17
+802,"Webinar on Physical Therapy, edition: IV",39.81
+803,"Webinar on Economics, edition: IV",25.75
+807,"Webinar on Information Technology, edition: II",69.5
+810,"Webinar on Marketing, edition: I",72.39
+811,"Webinar on Architecture, edition: IV",40.11
+812,"Webinar on Sociology, edition: IV",81.56
+814,"Webinar on Education, edition: III",46.37
+815,"Webinar on Biology, edition: II",73.54
+816,"Webinar on Philosophy, edition: I",71.87
+817,"Webinar on Journalism, edition: II",80.49
+819,"Webinar on Economics, edition: IV",57.69
+821,"Webinar on Public Administration, edition: I",93.41
+822,"Webinar on Human Resources, edition: IV",19.88
+823,"Webinar on Business Administration, edition: I",96.02
+826,"Webinar on Business Administration, edition: IV",84.7
+827,"Webinar on Literature, edition: III",81.37
+828,"Webinar on Geography, edition: I",67.59
+829,"Webinar on Physical Therapy, edition: I",61.12
+831,"Webinar on Finance, edition: I",19.64
+832,"Webinar on Media Studies, edition: II",66.77
+833,"Webinar on History, edition: I",89.27
+835,"Webinar on Nursing, edition: II",87.64
+838,"Webinar on Information Technology, edition: II",58.47
+839,"Webinar on Communication, edition: II",36.82
+840,"Webinar on Sociology, edition: I",91.48
+841,"Webinar on Public Relations, edition: II",13.4
+842,"Webinar on Healthcare Management, edition: II",64.02
+843,"Webinar on Architecture, edition: IV",65.0
+845,"Webinar on Public Relations, edition: III",71.01
+846,"Webinar on Physical Therapy, edition: III",54.77
+847,"Webinar on Dentistry, edition: III",93.59
+851,"Webinar on Entrepreneurship, edition: I",41.18
+854,"Webinar on Education, edition: III",19.29
+855,"Webinar on Biology, edition: I",92.1
+863,"Webinar on Supply Chain Management, edition: IV",41.8
+865,"Webinar on Geography, edition: IV",88.8
+866,"Webinar on Sociology, edition: III",47.63
+867,"Webinar on Architecture, edition: III",63.13
+868,"Webinar on Marketing, edition: III",99.48
+871,"Webinar on International Business, edition: II",16.63
+874,"Webinar on Media Studies, edition: II",28.36
+878,"Webinar on Social Work, edition: I",93.78
+880,"Webinar on Business Administration, edition: I",15.53
+882,"Webinar on Public Relations, edition: II",45.74
+884,"Webinar on Psychology, edition: III",99.59
+887,"Webinar on International Business, edition: IV",58.91
+888,"Webinar on Biology, edition: II",12.57
+889,"Webinar on Anthropology, edition: I",81.93
+892,"Webinar on Anthropology, edition: II",67.04
+893,"Webinar on Supply Chain Management, edition: III",91.49
+895,"Webinar on Pharmacy, edition: II",58.76
+896,"Webinar on Engineering, edition: IV",39.63
+897,"Webinar on Pharmacy, edition: II",22.16
+900,"Webinar on Public Relations, edition: II",30.35
+901,"Webinar on Math, edition: IV",21.03
+902,"Webinar on Physics, edition: I",87.68
+909,"Webinar on Public Administration, edition: III",69.28
+911,"Webinar on Social Work, edition: II",89.02
+912,"Webinar on Media Studies, edition: IV",45.4
+913,"Webinar on Chemistry, edition: I",24.9
+915,"Webinar on Architecture, edition: I",99.91
+916,"Webinar on Human Resources, edition: II",32.41
+918,"Webinar on Management, edition: III",23.91
+920,"Webinar on Computer Science, edition: I",84.17
+921,"Webinar on Public Relations, edition: III",29.35
+923,"Webinar on Occupational Therapy, edition: IV",97.12
+926,"Webinar on Biology, edition: IV",34.65
+927,"Webinar on Physics, edition: IV",78.39
+929,"Webinar on Public Relations, edition: II",20.66
+930,"Webinar on Education, edition: I",56.47
+932,"Webinar on Journalism, edition: IV",78.84
+935,"Webinar on History, edition: III",43.58
+936,"Webinar on Marketing, edition: III",12.62
+937,"Webinar on Business Administration, edition: II",56.83
+939,"Webinar on Sociology, edition: IV",76.99
+940,"Webinar on Literature, edition: II",45.55
+941,"Webinar on Management, edition: IV",74.41
+942,"Webinar on Geography, edition: I",50.03
+943,"Webinar on Engineering, edition: IV",64.75
+952,"Webinar on Computer Science, edition: II",26.2
+953,"Webinar on Engineering, edition: III",20.04
+954,"Webinar on Media Studies, edition: I",38.82
+955,"Webinar on Finance, edition: I",97.65
+956,"Webinar on Human Resources, edition: IV",62.04
+960,"Webinar on Sociology, edition: I",16.88
+961,"Webinar on Public Administration, edition: III",42.98
+962,"Webinar on Nursing, edition: II",54.95
+965,"Webinar on Finance, edition: IV",92.82
+967,"Webinar on Urban Planning, edition: III",22.77
+972,"Webinar on Sociology, edition: II",10.23
+973,"Webinar on Communication, edition: II",74.81
+975,"Webinar on Engineering, edition: IV",31.94
+977,"Webinar on Accounting, edition: III",11.76
+979,"Webinar on Geography, edition: III",79.7
+981,"Webinar on Computer Science, edition: I",92.85
+983,"Webinar on Operations Management, edition: III",47.81
+985,"Webinar on Environmental Science, edition: I",48.52
+988,"Webinar on Political Science, edition: I",46.65
+989,"Webinar on Public Administration, edition: I",15.69
+991,"Webinar on Biology, edition: IV",39.73
+992,"Webinar on Physics, edition: I",97.47
+994,"Webinar on Criminal Justice, edition: III",97.03
+998,"Webinar on Physical Therapy, edition: I",12.69
