@@ -132,12 +132,12 @@ CREATE TABLE employee (
     middleName nvarchar(50)  NULL,
     lastName nvarchar(50)  NOT NULL,
     phone varchar(50)  NOT NULL,
-    email nvarchar(50)  NOT NULL,
+    email nvarchar(2000)  NOT NULL,
     [address] nvarchar(50)  NOT NULL,
     CONSTRAINT employee_pk PRIMARY KEY (employeeID),
 	CONSTRAINT employee_chk_positive_ids CHECK (employeeID >= 0),
 	CONSTRAINT employee_chk_correct_email CHECK (email LIKE '%@%.%'),
-	CONSTRAINT employee_chk_correct_phone CHECK (phone LIKE '%[0-9 ]%')
+	CONSTRAINT employee_chk_correct_phone CHECK (phone LIKE '^\d{3}-\d{3}-\d{4}$')
 
 );
 
