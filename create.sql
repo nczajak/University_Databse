@@ -31,7 +31,7 @@ CREATE TABLE class (
     productID int  NOT NULL,
     languageID int  NOT NULL,
     term int  NOT NULL,
-    price decimal(7,2)  NOT NULL,
+    price money  NOT NULL,
     CONSTRAINT class_pk PRIMARY KEY (classID),
 	CONSTRAINT class_chk_positive_ids CHECK (classID >= 0 AND majorID >= 0  AND productID >= 0 AND languageID >= 0),
 	CONSTRAINT class_chk_positive_limit CHECK ( [limit] >= 30 AND limit <= 100),
@@ -61,8 +61,8 @@ CREATE TABLE convention (
     classID int  NOT NULL,
     productID int  NOT NULL,
     [limit] int  NOT NULL,
-    price decimal(7,2)  NOT NULL,
-    priceForStudents decimal(7,2)  NOT NULL,
+    price money  NOT NULL,
+    priceForStudents money  NOT NULL,
     conventionTypeID int  NOT NULL,
     CONSTRAINT convention_pk PRIMARY KEY (conventionID),
 	CONSTRAINT convention_chk_positive_ids CHECK (classID >= 0 AND conventionID >= 0  AND productID >= 0 AND conventionTypeID >= 0),
@@ -95,8 +95,8 @@ CREATE TABLE conventionType (
 CREATE TABLE course (
     courseID int  NOT NULL IDENTITY(0,1),
     productID int  NOT NULL,
-    price decimal(7,2)  NOT NULL,
-    advancePrice decimal(7,2)  NOT NULL,
+    price money  NOT NULL,
+    advancePrice money  NOT NULL,
     [limit] int  NULL,
     CONSTRAINT course_pk PRIMARY KEY (courseID),
 	CONSTRAINT course_chk_positive_ids CHECK (courseID >= 0  AND productID >= 0),
@@ -133,11 +133,11 @@ CREATE TABLE employee (
     lastName nvarchar(50)  NOT NULL,
     phone varchar(50)  NOT NULL,
     email nvarchar(50)  NOT NULL,
-    [address] nvarchar(50)  NOT NULL,
+    [address] nvarchar(200)  NOT NULL,
     CONSTRAINT employee_pk PRIMARY KEY (employeeID),
 	CONSTRAINT employee_chk_positive_ids CHECK (employeeID >= 0),
 	CONSTRAINT employee_chk_correct_email CHECK (email LIKE '%@%.%'),
-	CONSTRAINT employee_chk_correct_phone CHECK (phone LIKE '%[0-9 ]%')
+	CONSTRAINT employee_chk_correct_phone CHECK (phone LIKE '[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]')
 
 );
 
@@ -319,7 +319,7 @@ CREATE TABLE orderDetails (
     fullPaymentDate datetime  NULL,
     advancePaymentDate datetime  NULL,
     statusID int  NOT NULL,
-    price decimal(7,2)  NOT NULL,
+    price money  NOT NULL,
     CONSTRAINT orderDetails_pk PRIMARY KEY (orderID,productID),
 	CONSTRAINT orderDetails_chk_positive_ids CHECK (orderID >= 0  AND productID >= 0  AND statusID >= 0),
 	CONSTRAINT orderDetails_chk_fullPaymentDate_and_advancePaymentDate CHECK (fullPaymentDate>advancePaymentDate),
@@ -351,14 +351,15 @@ CREATE TABLE orders (
 CREATE TABLE participant (
     participantID int  NOT NULL IDENTITY(0,1),
     firstName nvarchar(50)  NOT NULL,
+    middleName nvarchar(50) NULL,
     lastName nvarchar(50)  NOT NULL,
     email nvarchar(50)  NOT NULL,
     phone nvarchar(50)  NOT NULL,
-    [address] nvarchar(50)  NOT NULL,
+    [address] nvarchar(200)  NOT NULL,
     CONSTRAINT participant_pk PRIMARY KEY (participantID),
 	CONSTRAINT participant_chk_positive_ids CHECK (participantID >= 0),
 	CONSTRAINT participant_chk_correct_email CHECK (email LIKE '%@%.%'),
-	CONSTRAINT participant_chk_correct_phone CHECK (phone LIKE '%[0-9 ]%')
+	CONSTRAINT participant_chk_correct_phone CHECK (phone LIKE '[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]')
 
 );
 
@@ -495,7 +496,7 @@ CREATE TABLE translatorDetails (
 CREATE TABLE webinar (
     webinarID int  NOT NULL IDENTITY(0,1),
     productID int  NOT NULL,
-    price decimal(7,2)  NULL,
+    price money  NULL,
     webinarName nvarchar(50)  NOT NULL,
     CONSTRAINT webinar_pk PRIMARY KEY (webinarID),
 	CONSTRAINT webinar_chk_positive_ids CHECK (webinarID >= 0 AND productID >= 0),

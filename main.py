@@ -6,15 +6,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 from faker.providers import BaseProvider
 
-### zmienic w bazie meetingMode - ja się tym zajmę
-# w modułach ok 680 linijki daje losowe id bo nie  wiem jak wyciągać które id
-# należą do kursów, więc  jak ktos wie to może poprawić
 
-### rzeczy do zmienienia w create.sql :
-# dodanie AUTOINCREMENT do id w tabelach, które nie maja FK jako PK
-# w orderDetails, pk to orderID, productID, a nie samo orderID, jesli moze byc kilka produktow w jendym order
-# dodac tablice course participants
-# courseDetails  ma title, mimo że courseName istnieje w course?
 # Ammount parameters:
 participants_ammount = 10000
 employees_amount = 1000
@@ -40,10 +32,17 @@ class PhoneProvider(BaseProvider):
             last = (str(random.randint(1, 9998)).zfill(4))
 
         return f'{first}-{second}-{last}'
-
+    
+class EmailProvider(BaseProvider):
+    def email_from_name(self, firstName, secondName):
+        first = firstName[0:3].lower()
+        second = secondName.lower()
+        domain = self.random_element(['example.com', 'example.org', 'example.net'])
+        return f'{first}{second}@{domain}'
 
 fake = Faker(locale="en_US")
 fake.add_provider(PhoneProvider)
+fake.add_provider(EmailProvider)
 
 
 def generate_random_string(length=10):
@@ -64,12 +63,14 @@ fake.add_provider(LinkProvider)
 # Generate random employee data
 employee_list = []
 for i in range(employees_amount):
+    firstName = fake.first_name()
+    lastName = fake.last_name()
     employee = {
-        "firstName": fake.first_name(),
+        "firstName": firstName,
         "middleName": fake.first_name(),
-        "lastName": fake.last_name(),
+        "lastName": lastName,
         "phone": fake.phone(),
-        "email": fake.email(),
+        "email": fake.email_from_name(firstName, lastName),
         "address": fake.address(),
     }
     employee_list.append(employee)
@@ -81,7 +82,7 @@ df.to_csv('data/employees.csv', index=False)
 # Generate titles
 titles = ["professor", "assistant professor", "lecturer", "senior lecturer", "associate professor", "adjunct professor",
           "visiting professor", "instructor", "president"]
-titles_df = pd.DataFrame(titles, columns=['titleID'])
+titles_df = pd.DataFrame(titles, columns=['titleName'])
 
 titles_df.to_csv('data/titles.csv', index=False)
 
@@ -129,7 +130,7 @@ language_details_df.to_csv('data/translatorDetails.csv', index=False)
 instructor_ids = df.sample(frac=0.9)
 instructors = {
     "instructorID": instructor_ids.index,
-    "titleID": [fake.random_element(titles[0:7]) for _ in range(len(instructor_ids))]
+    "titleID": [fake.random_int(min = 0, max=len(titles) - 1) for _ in range(len(instructor_ids))]
 }
 instructors_df = pd.DataFrame(instructors)
 instructors_df.to_csv('data/instructors.csv', index=False)
@@ -139,7 +140,7 @@ remaining_ids = df.drop(instructor_ids.index)
 president = remaining_ids.sample(n=1)
 president_data = {
     "presidentID": president.index[0],
-    "titleID": titles[8]
+    "titleID": 8
 }
 president_df = pd.DataFrame([president_data])
 president_df.to_csv('data/president.csv', index=False)
@@ -191,12 +192,14 @@ instructor_details_df.to_csv('data/instructorDetails.csv', index=False)
 partcipant_list = []
 participant_schedule = [[] for i in range(participants_ammount)]
 for i in range(participants_ammount):
+    firstName = fake.first_name()
+    lastName = fake.last_name()
     participant = {
-        "firstName": fake.first_name(),
+        "firstName": firstName,
         "middleName": fake.first_name(),
-        "lastName": fake.last_name(),
-        "email": fake.email(),
+        "lastName": lastName,
         "phone": fake.phone(),
+        "email": fake.email_from_name(firstName, lastName),
         "address": fake.address(),
     }
     partcipant_list.append(participant)
@@ -299,8 +302,8 @@ for i in range(class_ammount):
         "majorID": fake.random_int(min=0, max=len(majors) - 1),
         "productID": relatedProduct_ids[i],
         "languageID": fake.random_int(min=0, max=len(languages) - 1),
-        # 0 if class is in the past
-        "term": ((2025 - year) * 2 + 1 if year > 2021 else 0),
+        # None if class is in the past
+        "term": ((2025 - year) * 2 + 1 if year > 2021 else fake.random_int(min = 0, max = 10)),
         "price": (fake.random_int(min=1000000, max=30000000) / 100),
     }
     product_price[relatedProduct_ids[i]] = class_data['price']
@@ -353,9 +356,6 @@ for i in range(course_ammount):
         continue
     course_data = {
         "productID": relatedProduct_ids[i],
-        "courseName": "Course on " + subjects['subjectName'][
-            fake.random_int(min=0, max=subjects_length - 1)] + ", edition: " + fake.random_element(
-            ["I", "II", "III", "IV"]),
         "price": fake.random_int(min=20000, max=300000) / 100,
         "advancePrice": fake.random_int(min=10000, max=150000) / 100,
         "limit": fake.random_int(min=30, max=60) if fake.random_int(min=0, max=5) == 0 else None,
@@ -578,9 +578,10 @@ orderStatus_df.to_csv('data/orderStatus.csv', index=False)
 paymentDeferral = []
 for i in range (1, 10):
     order_id = fake.random_int(min=1, max=len(orders_list))
+    product_start_date = product_time_start_end[order_product_ids[order_id//2][0]][1]
     payment = {
         "orderID": fake.random_int(min=1, max=len(orders_list)),
-        "newDueDate": fake.date_between(product_time_start_end[order_product_ids[order_id//2][0]][1], end_date='+1M').strftime('%Y-%m-%d %H:%M:%S')
+        "newDueDate": fake.date_between(start_date='-1M', end_date='+1M').strftime('%Y-%m-%d %H:%M:%S')
     }
     paymentDeferral.append(payment)
 paymentDeferral_df = pd.DataFrame(paymentDeferral)
@@ -766,6 +767,215 @@ modules_df.to_csv('data/modules.csv', index=False)
 typeNames = ["online synchronous", "online asynchronous", "stationary", "hybrid"]
 conventionTypes_df = pd.DataFrame(typeNames, columns=['modeName'])
 conventionTypes_df.to_csv('data/conventionTypes.csv', index=False)
+
+# generate convention
+# nie zapomnieć dodać do products
+conventions_per_study = 10
+studies_amount = len(class_df)
+
+conventions = []
+
+for i in range(studies_amount):
+    for j in range(conventions_per_study):
+        price_for_students = (fake.random_int(min=100000, max=1000000) / 100)
+        convent = {
+            "classID": i,
+            "productID": product_ammount + i * conventions_per_study + j,
+            "limit": class_df['limit'][i] + fake.random_int(min=0, max=20), ## limity takie żeby pasować do limitów studiów tj są większe
+            "price": round(price_for_students * 1.1, 2),
+            "priceForStudents": price_for_students,
+            "conventionTypeID": random.randint(0, 3),
+        }
+        conventions.append(convent)
+
+conventions_df = pd.DataFrame(conventions)
+conventions_df.to_csv('data/convention.csv', index=False)
+
+# generating conventionDetails -- dodawanie studentów jako uczestników zjazdu, można dodać jeszcze jakieś losowe osoby
+# PaymentDate chyba niepotrzebne bo jest w order i orderDetails
+
+convention_participants = []
+for i in range(len(students_df)):
+    classID = students_df['classID'][i]
+    studentID = students_df['studentID'][i]
+    for j in range (conventions_per_study):
+        convention_student = {
+            "studentID":studentID,
+            "conventionID":classID * conventions_per_study + j,
+            "paymentDate":fake.date_time_between(start_date='-7y', end_date='now')
+        }
+        convention_participants.append(convention_student)    
+convention_participants_df = pd.DataFrame(convention_participants)
+convention_participants_df = convention_participants_df.sort_values(by='conventionID')
+convention_participants_df = convention_participants_df.reset_index(drop=True)
+convention_participants_df.to_csv('data/conventionDetails.csv', index=False)
+
+# generate internshipDetails
+# czy internship nie powinno być związane z class ?
+# w internship jest datetime a w internshipDetails date
+
+internship_details = []
+internships_per_student = 2
+for i in range(len(students_df)):
+    studentID = students_df['studentID'][i]
+    internshipID = fake.random_int(min=0, max = len(internships_df) - 1) # albo losujemy internshipID albo dajemy takie samo jak classID 
+    #internshipID = students_df['classID'][i]                      # ale tylko wtedy kiedy jest tyle samo wierszy w class co w internship
+    for j in range (internships_per_student):
+        internshipStartDate = datetime.strptime(internships_df['startDate'][internshipID],'%Y-%m-%d').date()
+        thisdate = fake.date_between(start_date=internshipStartDate, end_date=internshipStartDate + timedelta(days=14))
+        if(thisdate < datetime.today().date()):
+            wasPresent = random.choices([0, 1], weights=[10, 90], k=1)[0]
+        else:
+            wasPresent = None
+
+        internshipDetail = {
+            "internshipID": internshipID,
+            "studentID": studentID,
+            "date": thisdate.strftime('%Y-%m-%d'), 
+            "wasPresent": wasPresent,
+        }
+        internship_details.append(internshipDetail)    
+internship_details_df = pd.DataFrame(internship_details)
+internship_details_df.to_csv('data/internshipDetails.csv', index=False)
+
+# przydzielenie losowo meetingów do kursów i klas
+# nie jest zgodne z sylabusem
+# część zjazdów i modułów nie będzie miała żadnego spotkania
+
+moduleSchedule = []
+studySchedule = []
+i = 0
+while(i < meeting_amount):
+    meetingMode = meetings_df['meetingMode'][i] # OnSyn, OnAsyn, Stat
+    if(random.choices([True, False], k=1)[0]):
+        #studia
+        conventionID = random.randint(0, len(conventions_df)-1)
+        conventionMode = conventions_df['conventionTypeID'][conventionID] # OnSyn, OnAsyn, Stat, Hyb
+        if(conventionMode == 3 or conventionMode == meetingMode):
+            convention_meeting = {
+                "meetingID": i,
+                "conventionID": conventionID
+            }
+            studySchedule.append(convention_meeting)
+            i=i+1
+    else:
+        #kurs
+        moduleID = random.randint(0, len(modules_df)-1)
+        moduleMode = modules_df['moduleTypeID'][moduleID]
+        if(moduleMode == 3 or moduleMode == meetingMode):
+            module_meeting = {
+                "meetingID": i,
+                "moduleID": moduleID
+            }
+            moduleSchedule.append(module_meeting)
+            i=i+1
+
+module_schedule_df = pd.DataFrame(moduleSchedule)
+study_schedule_df = pd.DataFrame(studySchedule)
+module_schedule_df = module_schedule_df.sort_values(by='moduleID')
+study_schedule_df = study_schedule_df.sort_values(by='conventionID')
+module_schedule_df = module_schedule_df.reset_index(drop=True)
+study_schedule_df = study_schedule_df.reset_index(drop=True)
+study_schedule_df.to_csv('data/studySchedule.csv', index=False)
+module_schedule_df.to_csv('data/moduleSchedule.csv', index=False)
+
+#generate meetingParticipants and asyncMeetingDetails
+#conventionParticipants, studySchedule, moduleSchedule, courseParticipants, module mają być posortowane
+meetingParticipants = []
+asyncMeetingParticipants = []
+# ze strony studiów 
+a_index = 0
+b_index = 0
+for i in range(len(conventions_df)):
+    studentIDs = []
+    while(len(convention_participants_df) > a_index and i == convention_participants_df['conventionID'][a_index]):
+        studentIDs.append(convention_participants_df['studentID'][a_index])
+        a_index = a_index + 1
+    # Mamy listę studentów na zjeździe
+    meetingIDs = []
+    while(len(study_schedule_df) > b_index and i == study_schedule_df['conventionID'][b_index]):
+        meetingIDs.append(study_schedule_df['meetingID'][b_index])
+        b_index = b_index + 1
+    # Mamy listę spotkań na zjeździe
+    for meeting in meetingIDs:
+        if(meetings_df['meetingMode'][meeting] == 1): 
+            for student in studentIDs:
+                meeting_participant = {
+                    "meetingID": meeting,
+                    "participantID": student,
+                    "dateWatched": random.choices([fake.date_time_between(start_date='-6y').strftime("%m/%d/%Y, %H:%M:%S"), None], weights=[90, 10], k=1)[0]
+                }
+                asyncMeetingParticipants.append(meeting_participant)
+        else:
+            for student in studentIDs:
+                meeting_participant = {
+                    "meetingID": meeting,
+                    "participantID": student,
+                    "wasPresent": random.choices([1, 0], weights=[90, 10], k=1)[0] # można ustawić żeby dla przyszłych wydarzeń było None
+                }
+                meetingParticipants.append(meeting_participant)
+# dla uproszczenia zrobić moduleParticipants
+modules_df = modules_df.sort_values(by='courseID')
+modules_df = modules_df.reset_index(drop=False)
+course_participants_df = course_participants_df.sort_values(by='courseID')
+course_participants_df = course_participants_df.reset_index(drop=True)
+module_participants = []
+a_index = 0
+b_index = 0
+for i in range(len(course_df)):
+    studentIDs = []
+    while(len(course_participants_df) > a_index and i == course_participants_df['courseID'][a_index]):
+        studentIDs.append(course_participants_df['studentID'][a_index])
+        a_index = a_index + 1
+    moduleIDs = []
+    while(len(modules_df) > b_index and i == modules_df['courseID'][b_index]):
+        moduleIDs.append(modules_df['index'][b_index])
+        b_index = b_index + 1
+    for student in studentIDs:
+        for module in moduleIDs:
+            moduleParticipant = {
+                "participantID": student,
+                "moduleID": module
+            }
+            module_participants.append(moduleParticipant)
+module_participants_df = pd.DataFrame(module_participants)
+module_participants_df = module_participants_df.sort_values(by='moduleID')
+module_participants_df = module_participants_df.reset_index(drop=True)
+# Ze strony kursów
+a_index = 0
+b_index = 0
+for i in range(len(modules_df)):
+    studentIDs = []
+    while(len(module_participants_df) > a_index and i == module_participants_df['moduleID'][a_index]):
+        studentIDs.append(module_participants_df['participantID'][a_index])
+        a_index = a_index + 1
+    # Mamy listę studentów na module
+    meetingIDs = []
+    while(len(module_schedule_df) > b_index and i == module_schedule_df['moduleID'][b_index]):
+        meetingIDs.append(module_schedule_df['meetingID'][b_index])
+        b_index = b_index + 1
+    # Mamy listę spotkań na module
+    for meeting in meetingIDs:
+        if(meetings_df['meetingMode'][meeting] == 1): 
+            for student in studentIDs:
+                meeting_participant = {
+                    "meetingID": meeting,
+                    "participantID": student,
+                    "dateWatched": random.choices([fake.date_time_between(start_date='-6y').strftime("%m/%d/%Y, %H:%M:%S"), None], weights=[90, 10], k=1)[0]
+                }
+                asyncMeetingParticipants.append(meeting_participant)
+        else:
+            for student in studentIDs:
+                meeting_participant = {
+                    "meetingID": meeting,
+                    "participantID": student,
+                    "wasPresent": random.choices([1, 0], weights=[90, 10], k=1)[0] # można ustawić żeby dla przyszłych wydarzeń było None
+                }
+                meetingParticipants.append(meeting_participant)
+meeting_participants_df = pd.DataFrame(meetingParticipants)
+async_meeting_details_df = pd.DataFrame(asyncMeetingParticipants)
+meeting_participants_df.to_csv('data/meetingParticipants.csv', index=False)
+async_meeting_details_df.to_csv('data/asyncMeetingDetails.csv', index=False)
 
 
 
