@@ -808,4 +808,3 @@ ALTER TABLE webinar ADD CONSTRAINT webinar_products FOREIGN KEY  (productID)
     REFERENCES products (productID);
 
 -- End of file.
-
