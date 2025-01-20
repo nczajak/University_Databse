@@ -34,8 +34,8 @@ CREATE TABLE class (
     price money  NOT NULL,
     CONSTRAINT class_pk PRIMARY KEY (classID),
 	CONSTRAINT class_chk_positive_ids CHECK (classID >= 0 AND majorID >= 0  AND productID >= 0 AND languageID >= 0),
-	CONSTRAINT class_chk_positive_limit CHECK ( [limit] >= 30 AND limit <= 100),
-	CONSTRAINT class_chk_correct_term CHECK (0 < term AND term < 8),
+	CONSTRAINT class_chk_positive_limit CHECK ( [limit] >= 30 AND [limit] <= 100),
+	CONSTRAINT class_chk_correct_term CHECK (0 < term AND term <= 10),
 	CONSTRAINT class_chk_correct_price CHECK (price > 0)
 
 );
@@ -66,7 +66,7 @@ CREATE TABLE convention (
     conventionTypeID int  NOT NULL,
     CONSTRAINT convention_pk PRIMARY KEY (conventionID),
 	CONSTRAINT convention_chk_positive_ids CHECK (classID >= 0 AND conventionID >= 0  AND productID >= 0 AND conventionTypeID >= 0),
-	CONSTRAINT convention_chk_positive_limit CHECK ( [limit] >= 30 AND limit <= 100),
+	CONSTRAINT convention_chk_positive_limit CHECK ( [limit] >= 30  AND [limit] <= 100),
 	CONSTRAINT convention_chk_correct_price CHECK (price > 0),
 	CONSTRAINT convention_chk_correct_priceForStudents CHECK (priceForStudents > 0)
 
@@ -147,7 +147,7 @@ CREATE TABLE finalExam (
     classID int  NOT NULL,
     passed bit  NULL,
     CONSTRAINT finalExam_pk PRIMARY KEY (participantID,classID),
-	CONSTRAINT finalExam_chk_positive_ids CHECK (participantID > 0  AND classID > 0)
+	CONSTRAINT finalExam_chk_positive_ids CHECK (participantID >= 0  AND classID >= 0)
 
 
 );
@@ -174,7 +174,7 @@ CREATE TABLE instructorDetails (
 CREATE TABLE internship (
     internshipID int  NOT NULL IDENTITY(0,1),
     companyID int  NOT NULL,
-    startDate datetime  NOT NULL,
+    startDate date  NOT NULL,
     supervisorID int  NOT NULL,
     CONSTRAINT internship_pk PRIMARY KEY (internshipID),
 	CONSTRAINT internship_chk_positive_ids CHECK (internshipID >= 0  AND companyID >= 0 AND supervisorID >= 0)
@@ -405,7 +405,7 @@ CREATE TABLE roomDetails (
     startTime datetime  NOT NULL,
     endTime datetime  NOT NULL,
     usedBy int  NOT NULL,
-    CONSTRAINT roomDetails_pk PRIMARY KEY (roomID),
+    CONSTRAINT roomDetails_pk PRIMARY KEY (roomID, startTime),
 	CONSTRAINT roomDetails_chk_positive_ids CHECK (roomID >= 0 AND usedBy >= 0),
 	CONSTRAINT roomDetails_chk_sartTime_and_endTime CHECK (startTime<endTime)
 );
@@ -418,7 +418,7 @@ CREATE TABLE rooms (
     size int  NOT NULL,
     CONSTRAINT rooms_pk PRIMARY KEY (roomID),
 	CONSTRAINT rooms_chk_positive_ids CHECK (roomID >= 0 AND buildingID >= 0),
-	CONSTRAINT rooms_chk_correct_size CHECK (size > 0 AND size <=40),
+	CONSTRAINT rooms_chk_correct_size CHECK (size > 0 AND size < 51),
 	CONSTRAINT rooms_chk_correct_roomNumber CHECK (roomNumber>0)
 
 );
@@ -462,10 +462,10 @@ CREATE TABLE syllabus (
     subjectID int  NOT NULL,
     requiredHours int  NOT NULL,
     term int  NOT NULL,
-    CONSTRAINT syllabus_pk PRIMARY KEY (majorID,subjectID),
+    CONSTRAINT syllabus_pk PRIMARY KEY (majorID,subjectID, term),
 	CONSTRAINT syllabus_chk_positive_ids CHECK (majorID >= 0 AND subjectID >= 0),
 	CONSTRAINT syllabus_chk_requiredHour CHECK (requiredHours > 0),
-	CONSTRAINT syllabus_chk_term CHECK ( term >=1 AND term <=7)
+	CONSTRAINT syllabus_chk_term CHECK ( term >=1 AND term <=10)
 );
 
 -- Table: titles
@@ -492,7 +492,7 @@ CREATE TABLE translatorDetails (
 	CONSTRAINT translatorDetails_chk_positive_ids CHECK (translatorID >= 0 AND languageID >= 0)
 );
 
--- Table: webinar
+-- Table: Webinar
 CREATE TABLE webinar (
     webinarID int  NOT NULL IDENTITY(0,1),
     productID int  NOT NULL,
@@ -535,7 +535,11 @@ ALTER TABLE asyncMeetingDetails ADD CONSTRAINT asyncMeetingDetails_onlineAsyncMe
 ALTER TABLE asyncMeetingDetails ADD CONSTRAINT asyncMeetingDetails_participant FOREIGN KEY (participantID)
     REFERENCES participant (participantID);
 
+-- Reference: module_course (table: module)
+ALTER TABLE module ADD CONSTRAINT module_course FOREIGN KEY (courseID)
+    REFERENCES course (courseID);
 -- Reference: class_finalExam (table: finalExam)
+
 ALTER TABLE finalExam ADD CONSTRAINT class_finalExam FOREIGN KEY  (classID)
     REFERENCES class (classID);
 
@@ -662,10 +666,6 @@ ALTER TABLE meeting ADD CONSTRAINT meeting_subject FOREIGN KEY  (subjectID)
 -- Reference: moduleSchedule_module (table: moduleSchedule)
 ALTER TABLE moduleSchedule ADD CONSTRAINT moduleSchedule_module FOREIGN KEY  (moduleID)
     REFERENCES module (moduleID);
-
--- Reference: module_courseDetails (table: module)
-ALTER TABLE module ADD CONSTRAINT module_courseDetails FOREIGN KEY  (courseID)
-    REFERENCES courseDetails (courseID);
 
 -- Reference: module_moduleTypes (table: module)
 ALTER TABLE module ADD CONSTRAINT module_moduleTypes FOREIGN KEY  (moduleTypeID)

@@ -231,8 +231,9 @@ major_df.to_csv('data/major.csv', index=False)
 syllabus_list = []
 for i in range(len(majors)):
     term_number = 8
+
     for j in range(1, term_number + 1):
-        for subject_id in fake.random_elements(elements=range(subjects_length), length=fake.random_int(min=4, max=7)):
+        for subject_id in fake.random_elements(elements=range(subjects_length), length=fake.random_int(min=4, max=7), unique=True):
             syllabus = {
                 "majorID": i,
                 "subjectID": subject_id,
@@ -244,7 +245,7 @@ syllabus_df = pd.DataFrame(syllabus_list)
 syllabus_df.to_csv('data/syllabus.csv', index=False)
 
 # Generate productTypes
-product_types = ["Webinar", "Course", "Studies"]
+product_types = ["Webinar", "Course", "Studies", "Convention"]
 product_types_df = pd.DataFrame(product_types, columns=['typeName'])
 product_types_df.to_csv('data/productTypes.csv', index=False)
 
@@ -303,7 +304,7 @@ for i in range(class_ammount):
         "productID": relatedProduct_ids[i],
         "languageID": fake.random_int(min=0, max=len(languages) - 1),
         # None if class is in the past
-        "term": ((2025 - year) * 2 + 1 if year > 2021 else fake.random_int(min = 0, max = 10)),
+        "term": ((2025 - year) * 2 + 1 if year > 2021 else fake.random_int(min = 1, max = 10)),
         "price": (fake.random_int(min=1000000, max=30000000) / 100),
     }
     product_price[relatedProduct_ids[i]] = class_data['price']
@@ -330,7 +331,8 @@ for i in range(class_ammount):
 
         participant_schedule[student_id].append(
             product_time_start_end[relatedProduct_ids[i]])  # add class time frame so that events dont overlap
-        students.append(student)
+        if student not in students:
+            students.append(student)
 students_df = pd.DataFrame(students)
 students_df.to_csv('data/students.csv', index=False)
 
@@ -343,6 +345,8 @@ for student in students:
         "passed": fake.random_element([None, 1, 0]),
     }
     finalExam_list.append(final_exam)
+final_exam_df = pd.DataFrame(finalExam_list)
+final_exam_df.to_csv('data/finalExam.csv')
 
 # Generate course data
 relatedProduct_ids = [i for i in range(product_ammount) if product_list[i]['typeID'] == 1]
@@ -370,7 +374,10 @@ course_df.to_csv('data/course.csv', index=False)
 course_details_list = []
 for i in range(course_ammount):
     course_details = {
-        "courseID": relatedProduct_ids[i],
+        "courseID": i,
+        "title": "Course on " + subjects['subjectName'][
+            fake.random_int(min=0, max=subjects_length - 1)] + ", edition: " + fake.random_element(
+            ["I", "II", "III", "IV"]),
         "description": fake.text(),
         "languageID": fake.random_int(min=0, max=len(languages) - 1),
     }
@@ -428,19 +435,21 @@ for i in range(webinar_ammount):
 webinar_df = pd.DataFrame(webinar_list)
 webinar_df.to_csv('data/webinar.csv', index=False)
 
+
+
 # Generate webinarDetails data
 webinar_details_list = []
+translators_id = translators_df['translator_id'].tolist()
 for i in range(webinar_ammount):
     language = fake.random_int(min=0, max=len(languages) - 1)
-    for translator in translators_df['translator_id']:
-        if language in language_details_df[language_details_df['translatorID'] == translator]['languageID'].values:
-            break
+    translator_id = fake.random_element(elements=translators_id)
     webinar_details = {
+        "webinarID": i,
         "instructorID": fake.random_int(min=0, max=employees_amount - 1),
         "meetingLink": fake.link(),
         "recordingLink": fake.url(),
         "description": fake.text(),
-        "translatorID": translator,
+        "translatorID": translator_id,
         "languageID": language
     }
     webinar_details_list.append(webinar_details)
@@ -458,6 +467,7 @@ for i in range(webinar_ammount):
             student = {
                 "webinarID": i,
                 "participantID": student_id,
+                "accessUntill": fake.date_between(start_date='-6y', end_date='+1M')
             }
         except:
             print("Not enough participants")
@@ -490,7 +500,7 @@ room_list = []
 rooms_ammount = 100
 for i in range(rooms_ammount):
     room = {
-        "buildingID": fake.random_int(min=0, max=buildings_ammount - 1),
+        "buildingID": fake.random_int(min=0, max=buildings_ammount-1),
         "roomNumber": fake.random_int(min=100, max=999),
         "size": fake.random_int(min=20, max=50),
     }
@@ -501,7 +511,6 @@ room_df.to_csv('data/rooms.csv', index=False)
 # generate random orders data 
 
 orders_list = []
-
 order_product_ids = [[] for i in range(len(students) + len(course_participants) + len(webinar_participants))]
 
 
@@ -559,8 +568,8 @@ for order in orders_list:
         'orderID': i,
         'productID': order_product_ids[i][0],
         'fullPaymentDate': (order_date + timedelta(days=random.randint(1, 180))).strftime('%Y-%m-%d %H:%M:%S'),
-        'advancePaymentDate': (((order_date + timedelta(days=random.randint(1, 3))).strftime('%Y-%m-%d %H:%M:%S') if isCourse else None)),
-        'statusID': random.randint(1, 4),
+        'advancePaymentDate': (((order_date - timedelta(days=random.randint(1, 3))).strftime('%Y-%m-%d %H:%M:%S') if i%3==0 else None)),
+        'statusID': random.randint(0, 3),
         'price': product_price[order_product_ids[i][0]]
     }
     i += 1
@@ -571,7 +580,7 @@ orderDetails_df.to_csv('data/orderDetails.csv', index=False)
 
 # generate orderStatus data
 orderStatus = ["in progress", "completed", "cancelled", "refunded"]
-orderStatus_df = pd.DataFrame(orderStatus, columns=['statusID'])
+orderStatus_df = pd.DataFrame(orderStatus, columns=['statusType'])
 orderStatus_df.to_csv('data/orderStatus.csv', index=False)
 
 # generate PaymentDeferral data
@@ -614,7 +623,7 @@ meetingModes_df.to_csv('data/meetingMode.csv', index=False)
 meeting_list = []
 
 for i in range(meeting_amount):
-    subject_id = fake.random_int(min=1, max=subjects_length)
+    subject_id = fake.random_int(min=0, max=subjects_length-1)
     instructors_id = [instructors_df['instructorID'].tolist() for _ in instructors]
     instructor_id = random.choice(instructors_id[0])
     translators_id = [translators_df['translator_id'].tolist() for _ in translators]
@@ -626,7 +635,7 @@ for i in range(meeting_amount):
         "instructorID" : instructor_id,
         "translatorID" : translator_id,
         "languageID" : language_id,
-        "meetingMode" : random.randint(1,4)
+        "meetingMode" : random.randint(0,2)
     }
     meeting_list.append(meeting)
 
@@ -657,15 +666,14 @@ onlineSyncMeeting = []
 for i in range(1, onlineSyncMeeting_amount + 1):
     o_s_meeting = {
         "meetingID": onlineAsyncMeeting_amount + i,
-        "data": fake.date_between(start_date='-6y', end_date='+1y').strftime('%Y-%m-%d'),
-        "meetingLink": fake.link(),
-        "recordingLink": fake.link()
+        "data": fake.date_time_between(start_date='-6y', end_date='+1y').strftime('%Y-%m-%d %H:%M:%S'),
+        "meetingLink": fake.url(),
+        "recordingLink": fake.url()
     }
     onlineSyncMeeting.append(o_s_meeting)
 
 onlineSyncMeeting_df = pd.DataFrame(onlineSyncMeeting)
-onlineSyncMeeting_df.to_csv('data/onlineSyncMeeting', index=False)
-
+onlineSyncMeeting_df.to_csv('data/onlineSyncMeeting.csv', index=False)
 
 #generate random stationaryMeetings data
 
@@ -674,8 +682,7 @@ stationaryMeetings = []
 for i in range(1, stationary_meetings_amount + 1):
     o_s_meeting = {
         "meetingID": onlineAsyncMeeting_amount + onlineSyncMeeting_amount + i,
-        "roomID": random.randint(1, 100),
-        "date": fake.date_between(start_date='-6y', end_date='+1y').strftime('%Y-%m-%d')
+        "roomID": random.randint(0, rooms_ammount-1),
     }
     stationaryMeetings.append(o_s_meeting)
 stationaryMeetings_df = pd.DataFrame(stationaryMeetings)
@@ -686,14 +693,21 @@ stationaryMeetings_df.to_csv('data/stationaryMeetings.csv', index=False)
 
 meetingTimes = []
 for i in range(meeting_amount):
+    # Generate a random date within a specific range
+    start_date = fake.date_between(start_date='-1y', end_date='today')
+    
+    # Generate random start time
     hour_start = random.randint(8, 17)
-    start_minutes_tmp = str(15 * (random.randint(0, 3)))
-    start_minutes = f"{start_minutes_tmp:02}"
-    end_hours = hour_start + random.randint(1, 3)
+    start_minutes = 15 * random.randint(0, 3)
+    start_datetime = datetime.combine(start_date, datetime.min.time()) + timedelta(hours=hour_start, minutes=start_minutes)
+    
+    # Generate random end time (1 to 3 hours after start time)
+    end_datetime = start_datetime + timedelta(hours=random.randint(1, 3))
+    
     meeting_time = {
         "meetingID": i,
-        "startTime": str(hour_start) + ":" + start_minutes,
-        "endTime": str(end_hours) + ":" + start_minutes
+        "startTime": start_datetime.strftime('%Y-%m-%d %H:%M:%S'),
+        "endTime": end_datetime.strftime('%Y-%m-%d %H:%M:%S')
     }
     meetingTimes.append(meeting_time)
 
@@ -704,17 +718,23 @@ meetingTimes_df.to_csv('data/meetingTimes.csv', index=False)
 
 roomDetails = []
 for i in range(1, 1000):
+     # Generate a random date within a specific range
+    start_date = fake.date_between(start_date='-1y', end_date='today')
+    
+    # Generate random start time
     hour_start = random.randint(8, 17)
-    start_minutes_tmp = str(15 * (random.randint(0, 3)))
-    start_minutes = f"{start_minutes_tmp:02}"
-    end_hours = hour_start + random.randint(1, 3)
-    instructors_id = [instructors_df['instructorID'].tolist() for instructor in instructors]
+    start_minutes = 15 * random.randint(0, 3)
+    start_datetime = datetime.combine(start_date, datetime.min.time()) + timedelta(hours=hour_start, minutes=start_minutes)
+    
+    # Generate random end time (1 to 3 hours after start time)
+    end_datetime = start_datetime + timedelta(hours=random.randint(1, 3))
+    
     instructor_id = random.choice(instructors_id[0])
 
     room_detail = {
-        "roomID": random.randint(1, 100),
-        "startTime": str(hour_start) + ":" + start_minutes,
-        "endTime": str(end_hours) + ":" + start_minutes,
+        "roomID": random.randint(0, len(room_list)-1),
+        "startTime": start_datetime.strftime('%Y-%m-%d %H:%M:%S'),
+        "endTime": end_datetime.strftime('%Y-%m-%d %H:%M:%S'),
         "usedBy": instructor_id
     }
     roomDetails.append(room_detail)
@@ -732,7 +752,7 @@ for i in range(10):
     supervisor_id = random.choice(supervisors_id[0])
 
     internship = {
-        "companyID": random.randint(1, company_ammount + 1),
+        "companyID": fake.random_int(min=0, max=company_ammount-1),
         "startDate": fake.date_between(start_date='-6y', end_date='+1y').strftime('%Y-%m-%d'),
         "supervisorID": supervisor_id
     }
@@ -755,7 +775,7 @@ for i in range(module_amount):
     module = {
         "courseID": random.randint(1, 100),
         "description": fake.text(),
-        "moduleTypeID": random.randint(1, 4)
+        "moduleTypeID": random.randint(0, 3)
     }
     modules.append(module)
 
@@ -769,10 +789,19 @@ conventionTypes_df = pd.DataFrame(typeNames, columns=['modeName'])
 conventionTypes_df.to_csv('data/conventionTypes.csv', index=False)
 
 # generate convention
-# nie zapomnieć dodać do products
 conventions_per_study = 10
 studies_amount = len(class_df)
+additional_products_ammount = product_ammount + studies_amount*conventions_per_study
 
+for i in range(product_ammount,additional_products_ammount):
+    product = {
+        "isAvailable": fake.random_int(min=0, max=1),
+        "typeID": 3,
+
+    }
+    product_list.append(product)
+product_df = pd.DataFrame(product_list)
+product_df.to_csv('data/products.csv', index=False)
 conventions = []
 
 for i in range(studies_amount):
@@ -781,7 +810,7 @@ for i in range(studies_amount):
         convent = {
             "classID": i,
             "productID": product_ammount + i * conventions_per_study + j,
-            "limit": class_df['limit'][i] + fake.random_int(min=0, max=20), ## limity takie żeby pasować do limitów studiów tj są większe
+            "limit": min(class_df['limit'][i] + fake.random_int(min=30, max=60),100), ## limity takie żeby pasować do limitów studiów tj są większe
             "price": round(price_for_students * 1.1, 2),
             "priceForStudents": price_for_students,
             "conventionTypeID": random.randint(0, 3),
@@ -811,7 +840,6 @@ convention_participants_df = convention_participants_df.reset_index(drop=True)
 convention_participants_df.to_csv('data/conventionDetails.csv', index=False)
 
 # generate internshipDetails
-# czy internship nie powinno być związane z class ?
 # w internship jest datetime a w internshipDetails date
 
 internship_details = []
@@ -903,7 +931,7 @@ for i in range(len(conventions_df)):
                 meeting_participant = {
                     "meetingID": meeting,
                     "participantID": student,
-                    "dateWatched": random.choices([fake.date_time_between(start_date='-6y').strftime("%m/%d/%Y, %H:%M:%S"), None], weights=[90, 10], k=1)[0]
+                    "dateWatched": random.choices([fake.date_time_between(start_date='-6y').strftime("%Y-%m-%d %H:%M:%S"), None], weights=[90, 10], k=1)[0]
                 }
                 asyncMeetingParticipants.append(meeting_participant)
         else:
@@ -961,7 +989,7 @@ for i in range(len(modules_df)):
                 meeting_participant = {
                     "meetingID": meeting,
                     "participantID": student,
-                    "dateWatched": random.choices([fake.date_time_between(start_date='-6y').strftime("%m/%d/%Y, %H:%M:%S"), None], weights=[90, 10], k=1)[0]
+                    "dateWatched": random.choices([fake.date_time_between(start_date='-6y').strftime("%Y/%m/%d %H:%M:%S"), None], weights=[90, 10], k=1)[0]
                 }
                 asyncMeetingParticipants.append(meeting_participant)
         else:
@@ -976,9 +1004,3 @@ meeting_participants_df = pd.DataFrame(meetingParticipants)
 async_meeting_details_df = pd.DataFrame(asyncMeetingParticipants)
 meeting_participants_df.to_csv('data/meetingParticipants.csv', index=False)
 async_meeting_details_df.to_csv('data/asyncMeetingDetails.csv', index=False)
-
-
-
-
-
-
