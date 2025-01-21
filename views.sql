@@ -1,3 +1,99 @@
+--widoki w bazie
+
+--1 Raporty finansowe – zestawienie przychodów dla każdego webinaru/kursu/studium.
+
+--webinary
+create view webinar_income_list as
+select w.webinarID as webinarID, w.webinarName as webinarName, sum(od.price) as income
+from webinar as w
+inner join products as p on w.productID = p.productID
+inner join orderDetails as od on od.productID = p.productID
+inner join orderStatus as os on os.statusID = od.statusID
+where os.statusType = 'completed'
+group by w.webinarID, w.webinarName
+
+-- studia
+create view class_income_list as
+select c.classID as classID, sum(od.price) as income
+from class as c
+inner join products as p on c.productID = p.productID
+inner join orderDetails as od on od.productID = p.productID
+inner join orderStatus as os on os.statusID = od.statusID
+where os.statusType = 'completed'
+group by c.classID
+
+-- kursy
+create view courses_income_list as
+select c.courseID as courseID,sum(od.price) as income
+from course as c
+inner join products as p on c.productID = p.productID
+inner join orderDetails as od on od.productID = p.productID
+inner join orderStatus as os on os.statusID = od.statusID
+where os.statusType = 'completed'
+group by c.courseID
+
+-- zjazdy
+create view convention_income_list as
+select c.conventionID as conventionID,sum(od.price) as income
+from convention as c
+inner join products as p on c.productID = p.productID
+inner join orderDetails as od on od.productID = p.productID
+inner join orderStatus as os on os.statusID = od.statusID
+where os.statusType = 'completed'
+group by c.conventionID
+
+-- Ogólny raport dotyczący liczby zapisanych osób na przyszłe wydarzenia (z informacją,
+czy wydarzenie jest stacjonarnie, czy zdalnie).  Zamiast '2024-12-31 23:59:59' powinno być getDate ale nie mamy takich dat więc dałam od nowego roku
+	
+Create view future_meetings_participants as
+Select distinct p.participantID as participantID ,p.firstName + ' ' + p.lastName as Name, m.meetingID as 'ID spotkania' , 'stationary' as type
+from meetingTime as mt
+inner join meeting as m on mt.meetingID = m.meetingID
+inner join meetingParticipants as mp on m.meetingID = mp.meetingID
+inner join participant as p on p.participantID = mp.participantID
+where mt.startTime > '2024-12-31 23:59:59' and m.meetingID in (select meetingID from stationaryMeeting)
+union
+Select distinct p.participantID as ID ,p.firstName + ' ' + p.lastName as Name, m.meetingID as 'ID spotkania' , 'online syn' as type
+from meetingTime as mt
+inner join meeting as m on mt.meetingID = m.meetingID
+inner join meetingParticipants as mp on m.meetingID = mp.meetingID
+inner join participant as p on p.participantID = mp.participantID
+where mt.startTime > '2024-12-31 23:59:59' and m.meetingID in (select meetingID from onlineSyncMeeting)
+
+-- Ogólny raport dotyczący frekwencji na zakończonych już wydarzeniach.
+
+create view meeting_attendance as
+select
+m.meetingID as ID,
+(select count(*) from meetingParticipants as mpar where mpar.meetingID = m.meetingID) as allParticipants,
+(select count(*) from meetingParticipants as mpar where mpar.meetingID = m.meetingID and mpar.wasPresent = 1) as attendedParticipants 
+from meeting as m
+inner join meetingTime as mt on mt.meetingID = m.meetingID
+where mt.endTime < GETDATE()
+go
+
+--Lista obecności dla każdego szkolenia z datą, imieniem, nazwiskiem i informacją czy
+uczestnik był obecny, czy nie.
+	
+create view meeting_attendance as
+select meetingParticipants.meetingID as meetingID, participant.firstName + ' ' + participant.lastName as ParticipantName,
+meetingParticipants.wasPresent as wasPresent, meetingTime.startTime as date
+from meetingParticipants
+inner join participant on participant.participantID= meetingParticipants.participantID
+inner join meeting on meeting.meetingID=meetingParticipants.meetingID
+inner join meetingTime on meeting.meetingID = meetingTime.meetingID
+go
+
+
+
+
+
+
+
+
+
+
+	
 --Widoki
 --p�ki co przepisane z dokumentu
 
